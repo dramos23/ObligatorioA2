@@ -76,6 +76,6 @@ public class Hash implements IHash{
 		return -1;
 	}
 	
-	public void Pertenece(int i){};
+	public void Pertenece(int i){}; //no se para que sirve
 	
 }
