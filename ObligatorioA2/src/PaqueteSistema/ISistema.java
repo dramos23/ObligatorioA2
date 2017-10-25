@@ -1,7 +1,7 @@
 package PaqueteSistema;
 
 public interface ISistema {
-//prueba124
+
 	public Retorno inicializarSistema (int cantPuntos);
 	public Retorno destruirSistema();
 	public Retorno registrarProductor(String cedula, String nombre, String direccion, String email, String celular);
