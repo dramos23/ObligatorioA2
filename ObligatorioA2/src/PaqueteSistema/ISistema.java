@@ -1,5 +1,5 @@
 package PaqueteSistema;
-
+//inicio sistema!
 public interface ISistema {
 
 	public Retorno inicializarSistema (int cantPuntos);
