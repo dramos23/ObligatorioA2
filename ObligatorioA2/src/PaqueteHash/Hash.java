@@ -13,11 +13,11 @@ public class Hash implements IHash{
 	}
 
 	public void setTamanio(int tamanio) {
-		this.tamanio = numeroPrimoMenorA(tamanio);
+		this.tamanio = tamanio;
 	}
 	
 	public Hash (int tam) {
-		this.tamanio = tam;
+		this.tamanio = numeroPrimoMenorA(tam);
 		this.arregloA = new int[tam];
 		this.arregloB = new int[tam];
 		Arrays.fill(this.arregloA, 0);
