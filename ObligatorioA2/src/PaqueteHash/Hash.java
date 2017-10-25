@@ -53,7 +53,10 @@ public class Hash implements IHash{
 		
 	};
 	
-	public void Modificar(int i, int j){};
+	public void Modificar(int n, int m){
+		this.Borrar(n);
+		this.Insertar(m);	
+	};
 	
 	public int Buscar(int n) {
 		
