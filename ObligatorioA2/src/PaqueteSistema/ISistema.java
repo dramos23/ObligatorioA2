@@ -1,5 +1,5 @@
 package PaqueteSistema;
-//inicio sistema!
+
 public interface ISistema {
 
 	public Retorno inicializarSistema (int cantPuntos);
@@ -16,7 +16,4 @@ public interface ISistema {
 	public Retorno listadoDePlantacionesEnCiudad(Double coordX, Double coordY);
 	public Retorno listadoDeSilos();
 	public Retorno listadoProductores();
-	
-	// este es el fin... ahhh asdjiaiosjdioasdjio
-
 }
