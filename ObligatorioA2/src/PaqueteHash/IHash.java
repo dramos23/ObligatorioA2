@@ -12,5 +12,4 @@ public interface IHash {
 	
 	public void Pertenece(int n);
 
-	
 }

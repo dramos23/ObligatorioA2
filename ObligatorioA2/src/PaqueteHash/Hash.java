@@ -13,7 +13,7 @@ public class Hash implements IHash{
 	}
 
 	public void setTamanio(int tamanio) {
-		this.tamanio = tamanio;
+		this.tamanio = numeroPrimoMenorA(tamanio);
 	}
 	
 	public Hash (int tam) {
@@ -24,10 +24,11 @@ public class Hash implements IHash{
 	}
 	
 	public void Insertar(int n){
-		int indice = n % 10;
+		int indice = n % this.tamanio;
+		int R = numeroPrimoMenorA(this.tamanio-1);
 		int j = 0;
 		while(this.arregloA[indice] != 1) {
-			indice = (indice + j*( 7 - n % 7 )) % 10;
+			indice = (indice + j*( R - n % R )) % this.tamanio;
 			j++;		
 		}
 		this.arregloB[indice] = n;
@@ -35,8 +36,8 @@ public class Hash implements IHash{
 	};
 		
 	public void Borrar(int n){
-		
-		int indice = n % 10;
+		int R = numeroPrimoMenorA(this.tamanio-1);
+		int indice = n % this.tamanio;
 		boolean encontrado = true;
 		int j = 0;
 		while ( encontrado ) {
@@ -44,9 +45,9 @@ public class Hash implements IHash{
 				this.arregloB[indice] = 0;
 				this.arregloA[indice] = -1;
 			}	
-			indice = (indice + j*( 7 - n % 7 )) % 10;
+			indice = (indice + j*( R - n % R )) % this.tamanio;
 			j++;
-			if (j > this.arregloA.length) {
+			if (j >= this.arregloA.length) {
 				break;
 			}
 		}
@@ -59,21 +60,39 @@ public class Hash implements IHash{
 	};
 	
 	public int Buscar(int n) {
-		
-		int indice = n % 10;
+		int R = numeroPrimoMenorA(this.tamanio-1);
+		int indice = n % this.tamanio;
 		boolean encontrado = true;
 		int j = 0;
 		while ( encontrado ) {
 			if (this.arregloA[indice] == 1 && this.arregloB[indice] == n) {
 				return	this.arregloB[indice];
 			}	
-			indice = (indice + j*( 7 - n % 7 )) % 10;
+			indice = (indice + j*( R - n % R )) % this.tamanio;
 			j++;
-			if (j > this.arregloA.length) {
+			if (j >= this.arregloA.length) {
 				break;
 			}
 		}
 		return -1;
+	}
+	
+	private int numeroPrimoMenorA(int n) {
+		int contador = 1;
+		int ent = 0;
+		for (int i = 0; i < n; i++) {
+			while (contador != n-i){
+				if (n-i % contador == 0) {
+					ent++;					
+				}
+				contador++;
+			}
+			if ( ent == 2 ){
+				return n-i;
+			}
+			ent = 0;
+		}
+		return n;
 	}
 	
 	public void Pertenece(int i){}; //no se para que sirve
