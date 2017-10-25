@@ -27,7 +27,7 @@ public class Hash implements IHash{
 		int indice = n % this.tamanio;
 		int R = numeroPrimoMenorA(this.tamanio-1);
 		int j = 0;
-		while(this.arregloA[indice] != 1) {
+		while(this.arregloA[indice] != 1 && j < this.tamanio) {
 			indice = (indice + j*( R - n % R )) % this.tamanio;
 			j++;		
 		}
@@ -47,7 +47,7 @@ public class Hash implements IHash{
 			}	
 			indice = (indice + j*( R - n % R )) % this.tamanio;
 			j++;
-			if (j >= this.arregloA.length) {
+			if (j <= this.arregloA.length && j < this.tamanio) {
 				break;
 			}
 		}
@@ -70,7 +70,7 @@ public class Hash implements IHash{
 			}	
 			indice = (indice + j*( R - n % R )) % this.tamanio;
 			j++;
-			if (j >= this.arregloA.length) {
+			if (j <= this.arregloA.length  && j < this.tamanio) {
 				break;
 			}
 		}
