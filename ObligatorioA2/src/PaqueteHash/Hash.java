@@ -47,7 +47,7 @@ public class Hash implements IHash{
 			}	
 			indice = (indice + j*( R - n % R )) % this.tamanio;
 			j++;
-			if (j <= this.arregloA.length && j < this.tamanio) {
+			if (j >= this.arregloA.length && j < this.tamanio) {
 				break;
 			}
 		}
@@ -70,7 +70,7 @@ public class Hash implements IHash{
 			}	
 			indice = (indice + j*( R - n % R )) % this.tamanio;
 			j++;
-			if (j <= this.arregloA.length  && j < this.tamanio) {
+			if (j >= this.arregloA.length  && j < this.tamanio) {
 				break;
 			}
 		}
