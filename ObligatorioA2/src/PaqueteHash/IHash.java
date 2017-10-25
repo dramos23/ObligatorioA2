@@ -2,10 +2,15 @@ package PaqueteHash;
 
 public interface IHash {
 
-	public void Insertar(int i);
-	public void Borrar(int i);
-	public void Modificar(int i, int j);
-	public void Pertenece(int i);
+	public void Insertar(int n);
+	
+	public void Borrar(int n);
+	
+	public void Modificar(int n, int m);
+	
+	public int Buscar(int n);
+	
+	public void Pertenece(int n);
 
 	
 }
