@@ -17,7 +17,7 @@ public class Hash implements IHash{
 	}
 	
 	public Hash (int tam) {
-		this.tamanio = numeroPrimoMenorA(tam);
+		this.tamanio = numeroPrimoMayorA(tam);
 		this.arregloA = new int[tam];
 		this.arregloB = new int[tam];
 		Arrays.fill(this.arregloA, 0);
@@ -90,6 +90,26 @@ public class Hash implements IHash{
 			if ( ent == 2 ){
 				return n-i;
 			}
+			contador = 1;
+			ent = 0;
+		}
+		return n;
+	}
+	
+	private int numeroPrimoMayorA(int n) {
+		int contador = 1;
+		int ent = 0;
+		for (int i = 0; i < n; i++) {
+			while (contador != n+i){
+				if (n+i % contador == 0) {
+					ent++;					
+				}
+				contador++;
+			}
+			if ( ent == 2 ){
+				return n+i;
+			}
+			contador = 1;
 			ent = 0;
 		}
 		return n;
