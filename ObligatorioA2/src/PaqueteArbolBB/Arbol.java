@@ -3,6 +3,7 @@ package PaqueteArbolBB;
 
 
 public class Arbol {
+	
     private Nodo raiz;
     	
 	public Arbol() {
@@ -193,5 +194,61 @@ public class Arbol {
     	int Altder = (a.getDer() == null? 0:1 + Altura (a.getDer()));
     	int Altizq = (a.getIzq() == null? 0:1 + Altura (a.getIzq()));
     	return Math.max(Altder,Altizq);
+    }
+    
+    public void eliminar(int a) {
+    	
+    	if (raiz == null)
+    		return;
+    	if (raiz.getDato() == a) {
+    		if (raiz.getIzq() == null) {
+    			raiz = raiz.getDer();
+    		}else {
+    			if (raiz.getDer() == null) {
+    				raiz = raiz.getIzq();
+    			}else {
+    				Arbol der = this.subADer();
+    				raiz = raiz.getIzq();
+    				Nodo max = maximo();
+    				max.setDer(der.raiz);
+    			}
+    		}
+    	}else {
+    		if (raiz.getDato() > a) {
+    			Arbol izq = this.subAIzq();
+    			izq.eliminar(a);
+    			raiz.setIzq(izq.raiz);
+    		}else {
+    			Arbol der = this.subADer();
+    			der.eliminar(a);
+    			raiz.setDer(der.raiz);
+    		}
+    	}
+    }
+    
+    private Arbol subADer() {
+    	Arbol subArbol = new Arbol();
+    	subArbol.raiz = this.raiz.getDer();
+    	return subArbol;
+    };
+    
+    private Arbol subAIzq() {
+    	Arbol subArbol = new Arbol();
+    	subArbol.raiz = this.raiz.getIzq();
+    	return subArbol;
+    };
+    
+    private Nodo maximo() {
+    	if (raiz == null)
+    		return null;
+    	return maximo(raiz);
+    };
+    
+    private Nodo maximo(Nodo a) {
+    	if (a.getDer() == null) {
+    		return a;
+    	}else {
+    		return maximo(a.getDer());
+    	}
     }
 }
