@@ -20,6 +20,7 @@ public class Arbol {
     public void mostrarPreOrder(){
     	mostrarPreOrder(this.raiz);
     }
+    
     public void mostrarPreOrder(Nodo a){
         if (a!=null){
             System.out.print(a.getDato()+"   ");
@@ -31,6 +32,7 @@ public class Arbol {
     public void mostrarInOrder(){
     	mostrarInOrder(this.raiz);
     }
+    
     public void mostrarInOrder(Nodo a){
         if (a!=null){
             mostrarInOrder(a.getIzq());
@@ -42,6 +44,7 @@ public class Arbol {
     public void mostrarPosOrder(){
     	mostrarPosOrder(this.raiz);
     }
+    
     public void mostrarPosOrder(Nodo a){
         if (a!=null){
             mostrarPosOrder(a.getIzq());
@@ -116,7 +119,6 @@ public class Arbol {
 		return peso;
 	}
 
-     
     public void insertarElemento(int n, Nodo nodo) {
 		Nodo nuevo = null;
 
@@ -183,8 +185,13 @@ public class Arbol {
     }
     
     public int altura(){
-    	// TO-DO
-    	return 0;
+    	int alt = Altura(raiz);
+    	return alt;
     }
     
+    public int Altura (Nodo a){
+    	int Altder = (a.getDer() == null? 0:1 + Altura (a.getDer()));
+    	int Altizq = (a.getIzq() == null? 0:1 + Altura (a.getIzq()));
+    	return Math.max(Altder,Altizq);
+    }
 }
