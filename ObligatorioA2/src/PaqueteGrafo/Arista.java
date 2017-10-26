@@ -1,7 +1,5 @@
 package PaqueteGrafo;
 
-import java.util.Comparator;
-
 public class Arista{
 	private int destino;
 	private int peso;
