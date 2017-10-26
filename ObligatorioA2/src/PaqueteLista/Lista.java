@@ -1,6 +1,6 @@
 package PaqueteLista;
 
-import java.util.Iterator;
+
 
 public class Lista implements ILista{
 	private NodoLista inicio;
@@ -11,31 +11,6 @@ public class Lista implements ILista{
 	
 	public Lista(){
 		
-	}
-
-	@Override
-	public Iterator iterator() {
-		return new Iterator() {
-			
-			private NodoLista aux = inicio;
-			
-			@Override
-			public boolean hasNext() {
-				return aux!=null;
-			}
-
-			@Override
-			public Object next() {
-				Object actual = aux.getDato();
-				aux = aux.getSig();
-				return actual;
-			}
-
-			@Override
-			public void remove() {
-				// VACIO
-			}
-		};
 	}
 
 	public NodoLista getInicio(){

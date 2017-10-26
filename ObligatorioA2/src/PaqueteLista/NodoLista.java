@@ -1,6 +1,7 @@
 package PaqueteLista;
 
 public class NodoLista {
+	
 	private Object dato;
 	private NodoLista sig;
 

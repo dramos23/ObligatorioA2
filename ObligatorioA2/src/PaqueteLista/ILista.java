@@ -1,6 +1,6 @@
 package PaqueteLista;
 
-public interface ILista extends Iterable{
+public interface ILista{
 	
 	public void insertar(Object dato);
 	
