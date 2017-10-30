@@ -1,5 +1,7 @@
 package PaqueteDominio;
 
+import PaqueteSistema.Sistema;
+
 public class Plantacion extends Punto  {
 
 	private int capacidad;
@@ -25,6 +27,7 @@ public class Plantacion extends Punto  {
 		super(coordX, coordY, nombre);
 		this.capacidad = capacidad;
 		this.cedula_productor = cedula_productor;
+		this.setTipoPunto(Sistema.TipoPunto.PLANTACIÓN);
 	}
 	
 	

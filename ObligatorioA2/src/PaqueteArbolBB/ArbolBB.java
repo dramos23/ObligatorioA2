@@ -2,15 +2,15 @@ package PaqueteArbolBB;
 
 
 
-public class Arbol {
+public class ArbolBB{
 	
-    private Nodo raiz;
+    private NodoBB raiz;
     	
-	public Arbol() {
+	public ArbolBB() {
 		this.raiz = null;
 	}
 		
-	public Nodo getRaiz() {
+	public NodoBB getRaiz() {
 		return raiz;
 	}
 
@@ -22,7 +22,7 @@ public class Arbol {
     	mostrarPreOrder(this.raiz);
     }
     
-    public void mostrarPreOrder(Nodo a){
+    public void mostrarPreOrder(NodoBB a){
         if (a!=null){
             System.out.print(a.getDato()+"   ");
             mostrarPreOrder(a.getIzq());
@@ -34,7 +34,7 @@ public class Arbol {
     	mostrarInOrder(this.raiz);
     }
     
-    public void mostrarInOrder(Nodo a){
+    public void mostrarInOrder(NodoBB a){
         if (a!=null){
             mostrarInOrder(a.getIzq());
             System.out.print(a.getDato()+"  ");
@@ -46,7 +46,7 @@ public class Arbol {
     	mostrarPosOrder(this.raiz);
     }
     
-    public void mostrarPosOrder(Nodo a){
+    public void mostrarPosOrder(NodoBB a){
         if (a!=null){
             mostrarPosOrder(a.getIzq());
             mostrarPosOrder(a.getDer());
@@ -55,7 +55,7 @@ public class Arbol {
     }
 
     public boolean existeElemento(int e) {
-		Nodo nodo = obtenerElemento(e, raiz);
+		NodoBB nodo = obtenerElemento(e, raiz);
 		
 		if(nodo != null) {
 			return true;
@@ -64,7 +64,7 @@ public class Arbol {
 		}
 	}
 
-    public boolean existe(int e, Nodo a) {
+    public boolean existe(int e, NodoBB a) {
 	   boolean existe;
         if(a == null)
 			existe = false;
@@ -80,7 +80,7 @@ public class Arbol {
         return existe;
 	}
 
-    public Nodo obtenerElemento(int n, Nodo nodo) {
+    public NodoBB obtenerElemento(int n, NodoBB nodo) {
 		if(nodo == null) {
 			return nodo;
 		} else {
@@ -94,7 +94,7 @@ public class Arbol {
 		}
 	}
 	
-	public int cantNodos(Nodo nodo) {
+	public int cantNodos(NodoBB nodo) {
 		int cont = 0;
 		if(nodo != null)
         {
@@ -106,7 +106,7 @@ public class Arbol {
 		return cont;
 	}
 
-    public int obtenerPeso(Nodo nodo) {
+    public int obtenerPeso(NodoBB nodo) {
 		int peso     = 0;
 		int peso_izq = 0;
 		int peso_der = 0;
@@ -120,27 +120,27 @@ public class Arbol {
 		return peso;
 	}
 
-    public void insertarElemento(int n, Nodo nodo) {
-		Nodo nuevo = null;
+    public void insertarElemento(int n, NodoBB nodo) {
+		NodoBB nuevo = null;
 
         if (this.esArbolVacio())
-            this.raiz = new Nodo(n);
+            this.raiz = new NodoBB(n);
 
         else if( n < nodo.getDato())
-        {   // n < dato => insertaré en subárbol izq.
+        {   // n < dato => insertar en subarbol izq
             if(nodo.getIzq() == null)
             {
-                nuevo = new Nodo(n);
+                nuevo = new NodoBB(n);
                 nodo.setIzq(nuevo);
              }
              else
                  insertarElemento(n, nodo.getIzq());
         }
         else if( n > nodo.getDato())
-        {   // n > dato => insertaré en subárbol derecho
+        {   // n > dato => insertar en subarbol derecho
 			if(nodo.getDer() == null)
             {
-				nuevo = new Nodo(n);
+				nuevo = new NodoBB(n);
 				nodo.setDer(nuevo);
 			}
             else
@@ -148,7 +148,7 @@ public class Arbol {
 		}
 	}
     
-    public int cantHojas(Nodo nodo){
+    public int cantHojas(NodoBB nodo){
     	if (nodo.getDer() == null)
     		if (nodo.getIzq() == null)
     			return 1;
@@ -160,7 +160,7 @@ public class Arbol {
     			return cantHojas(nodo.getIzq())+cantHojas(nodo.getDer());
     }
 
-    public Nodo borrarMinimo(Nodo nodo){
+    public NodoBB borrarMinimo(NodoBB nodo){
     	if( nodo == null )
             return nodo;
         
@@ -175,9 +175,9 @@ public class Arbol {
         raiz = insertar( x, raiz );
     }
     
-    private Nodo insertar( int x, Nodo a ) {
+    private NodoBB insertar( int x, NodoBB a ) {
         if( a == null )
-            a = new Nodo( x );
+            a = new NodoBB( x );
         else if(x < a.getDato() )
             a.setIzq( insertar( x, a.getIzq()) ); // a.izq = insertar(x, a.izq); con los atributos públicos
         else if( x > a.getDato() )
@@ -190,7 +190,7 @@ public class Arbol {
     	return alt;
     }
     
-    public int Altura (Nodo a){
+    public int Altura (NodoBB a){
     	int Altder = (a.getDer() == null? 0:1 + Altura (a.getDer()));
     	int Altizq = (a.getIzq() == null? 0:1 + Altura (a.getIzq()));
     	return Math.max(Altder,Altizq);
@@ -207,44 +207,44 @@ public class Arbol {
     			if (raiz.getDer() == null) {
     				raiz = raiz.getIzq();
     			}else {
-    				Arbol der = this.subADer();
+    				ArbolBB der = this.subADer();
     				raiz = raiz.getIzq();
-    				Nodo max = maximo();
+    				NodoBB max = maximo();
     				max.setDer(der.raiz);
     			}
     		}
     	}else {
     		if (raiz.getDato() > a) {
-    			Arbol izq = this.subAIzq();
+    			ArbolBB izq = this.subAIzq();
     			izq.eliminar(a);
     			raiz.setIzq(izq.raiz);
     		}else {
-    			Arbol der = this.subADer();
+    			ArbolBB der = this.subADer();
     			der.eliminar(a);
     			raiz.setDer(der.raiz);
     		}
     	}
     }
     
-    private Arbol subADer() {
-    	Arbol subArbol = new Arbol();
+    private ArbolBB subADer() {
+    	ArbolBB subArbol = new ArbolBB();
     	subArbol.raiz = this.raiz.getDer();
     	return subArbol;
     };
     
-    private Arbol subAIzq() {
-    	Arbol subArbol = new Arbol();
+    private ArbolBB subAIzq() {
+    	ArbolBB subArbol = new ArbolBB();
     	subArbol.raiz = this.raiz.getIzq();
     	return subArbol;
     };
     
-    private Nodo maximo() {
+    private NodoBB maximo() {
     	if (raiz == null)
     		return null;
     	return maximo(raiz);
     };
     
-    private Nodo maximo(Nodo a) {
+    private NodoBB maximo(NodoBB a) {
     	if (a.getDer() == null) {
     		return a;
     	}else {

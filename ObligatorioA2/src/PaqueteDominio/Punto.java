@@ -5,6 +5,16 @@ public abstract class Punto {
 	private Double coordX;
 	private Double coordY;
 	private String nombre;
+	private Object tipoPunto;
+	
+	protected void setTipoPunto(Object tipoPunto){
+		this.tipoPunto = tipoPunto;
+	}
+	
+	public Object getTipoPunto(){
+		return tipoPunto;
+	}
+	
 	
 	public Double getCoordX() {
 		return coordX;
@@ -36,6 +46,24 @@ public abstract class Punto {
 		this.nombre = nombre;
 	}
 	
+	public int coordenadasAInt(){
+		String clave = coordX*2+","+coordY;
+		int disp = 0;
+		for(int i = 0; i<clave.length();i++)
+			disp+=(int)clave.charAt(i);
+		return disp;
+	}
+	
+	@Override
+	public boolean equals(Object o){
+		try {
+			Punto p = (Punto)o;
+			return p.getCoordX() == coordX && p.getCoordY() == coordY;
+		} catch(Exception ex){
+			System.out.println("Excepción: " +ex.getMessage());
+			return false;
+		}
+	}
 	
 	
 }

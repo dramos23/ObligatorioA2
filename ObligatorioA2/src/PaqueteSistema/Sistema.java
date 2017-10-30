@@ -1,12 +1,19 @@
 package PaqueteSistema;
 
+import PaqueteArbolBB.ArbolBB;
 import PaqueteSistema.Retorno.Resultado;
 
 public class Sistema implements ISistema {
+	
+	public enum TipoPunto {CIUDAD,PLANTACIÓN,SILO};
+	
+	public ArbolBB productores;
 
 	@Override
 	public Retorno inicializarSistema(int cantPuntos) {
 		Retorno ret = new Retorno();
+		
+		productores = new ArbolBB();
 		
 		ret.resultado = Resultado.NO_IMPLEMENTADA;
 		
@@ -26,7 +33,9 @@ public class Sistema implements ISistema {
 	public Retorno registrarProductor(String cedula, String nombre, String direccion, String email, String celular) {
 		Retorno ret = new Retorno();
 		
+		
 		ret.resultado = Resultado.NO_IMPLEMENTADA;
+		//ret.resultado = productores.insertar(x);
 		
 		return ret;
 	}

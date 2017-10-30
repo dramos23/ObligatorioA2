@@ -1,5 +1,7 @@
 package PaqueteDominio;
 
+import PaqueteSistema.Sistema;
+
 public class Silo extends Punto {
 
 	private int capacidad;
@@ -15,6 +17,7 @@ public class Silo extends Punto {
 	public Silo(String nombre, Double coordX, Double coordY, int capacidad) {
 		super(coordX, coordY, nombre);
 		this.capacidad = capacidad;
+		this.setTipoPunto(Sistema.TipoPunto.SILO);
 	}
 	
 }

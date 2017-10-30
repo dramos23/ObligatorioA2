@@ -1,5 +1,6 @@
 package PaqueteGrafo;
 
+import PaqueteHash.Hash;
 import PaqueteLista.Lista;
 import PaqueteLista.NodoLista;
 
@@ -8,13 +9,15 @@ public class GrafoLista implements IGrafo{
 	private int cantNodos; //maximo
 	private Lista[] listaAdyacencia;
 	private boolean[] nodosUsados;
+	private Hash nodosHash;
 	
 	//Crea el grafo vacio (sin nodos ni aristas) con capacidad de almacenamiento de n vértices
 	public GrafoLista(int n){
 		this.size = 0;
 		this.cantNodos = n;
-		this.listaAdyacencia = new Lista[this.cantNodos+1];
-		for (int i = 1; i<=this.cantNodos; i++)
+		this.nodosHash = new Hash(n);
+		this.listaAdyacencia = new Lista[nodosHash.getTamanio()+1];
+		for (int i = 1; i<=nodosHash.getTamanio(); i++)
 			this.listaAdyacencia[i]= new Lista();		
 		this.nodosUsados = new boolean[this.cantNodos+1];
 	}
