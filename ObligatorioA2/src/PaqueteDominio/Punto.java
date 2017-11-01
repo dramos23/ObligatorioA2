@@ -46,7 +46,7 @@ public abstract class Punto {
 		this.nombre = nombre;
 	}
 	
-	public int coordenadasAInt(){
+	public int getClave(){
 		String clave = coordX*2+","+coordY;
 		int disp = 0;
 		for(int i = 0; i<clave.length();i++)

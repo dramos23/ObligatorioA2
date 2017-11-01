@@ -1,5 +1,6 @@
 package PaqueteGrafo;
 
+import PaqueteDominio.Punto;
 import PaqueteHash.Hash;
 import PaqueteLista.Lista;
 import PaqueteLista.NodoLista;
@@ -8,55 +9,69 @@ public class GrafoLista implements IGrafo{
 	private int size; //actualmente
 	private int cantNodos; //maximo
 	private Lista[] listaAdyacencia;
-	private boolean[] nodosUsados;
-	private Hash nodosHash;
+	private Punto[] vertices;
+	private Hash hash;
 	
 	//Crea el grafo vacio (sin nodos ni aristas) con capacidad de almacenamiento de n vértices
 	public GrafoLista(int n){
 		this.size = 0;
 		this.cantNodos = n;
-		this.nodosHash = new Hash(n);
-		this.listaAdyacencia = new Lista[nodosHash.getTamanio()+1];
-		for (int i = 1; i<=nodosHash.getTamanio(); i++)
+		this.hash = new Hash(n);
+		this.listaAdyacencia = new Lista[hash.getTamanio()];
+		for (int i = 0; i<hash.getTamanio(); i++)
 			this.listaAdyacencia[i]= new Lista();		
-		this.nodosUsados = new boolean[this.cantNodos+1];
+		this.vertices = new Punto[hash.getTamanio()];
 	}
 	
 	@Override
-	public void agregarVertice(int v) {
-		this.nodosUsados[v]=true;
-		this.size++;
+	public void agregarVertice(Object v) {
+		//this.nodosUsados[v]=true;
+		Punto p = (Punto)v;
+		if(size + 1 != cantNodos) {
+			int indiceInsertado = hash.Insertar(p);
+			vertices[indiceInsertado] = p;
+			this.size++;
+		}
 	}
 	@Override
 	public void agregarArista(int origen, int destino, int peso) {
 		this.listaAdyacencia[origen].insertar(new Arista(destino,peso));		
 	}
 	@Override
-	public void eliminarVertice(int v) {
-		this.nodosUsados[v]=false;
-		this.size --;
-		
-		//Borrar aristas que salen de v
-		this.listaAdyacencia[v] = new Lista();
-		//Borrar aristas que llegan a v
-		for (int i = 1; i<=cantNodos; i++)
-			this.listaAdyacencia[i].borrar(v);		
+	public void eliminarVertice(Object v) {
+		Punto p = (Punto)v;
+		//this.nodosUsados[v]=false;
+		int indiceBorrado = hash.Borrar(p);
+		if(indiceBorrado != -1) {
+			vertices[indiceBorrado] = null;
+			this.size --;
+			
+			//Borrar aristas que salen de v
+			this.listaAdyacencia[indiceBorrado] = new Lista();
+			//Borrar aristas que llegan a v
+			for (int i = 0; i<hash.getTamanio(); i++)
+				this.listaAdyacencia[i].borrar(indiceBorrado);	
+		}	
 	}
 	@Override
 	public void eliminarArista(int origen, int destino) {
 		
 	}
 	@Override
-	public Lista verticesAdyacentes(int v) {
-		return listaAdyacencia[v];
+	public Lista verticesAdyacentes(Object v) {
+		Punto p = (Punto)v;
+		//return listaAdyacencia[v];
+		return null;
 	}
 	@Override
-	public boolean sonAdyacentes(int a, int b) {
-		return a <= cantNodos && listaAdyacencia[a].existe(new Arista(b));
+	public boolean sonAdyacentes(Object a, Object b) {
+		//return a <= cantNodos && listaAdyacencia[a].existe(new Arista(b));
+		return false;
 	}
 	@Override
-	public boolean existeVertice(int v) {
-		return v <= cantNodos && nodosUsados[v];
+	public boolean existeVertice(Object v) {
+		//return v <= cantNodos && nodosUsados[v];
+		return false;
 	}
 	@Override
 	public boolean esVacio() {
@@ -113,6 +128,4 @@ public class GrafoLista implements IGrafo{
 	public Arista obtenerArista(int origen, int destino) {
 		return ((Arista)listaAdyacencia[origen].recuperar(destino));
 	}
-	
-
 }
