@@ -1,6 +1,6 @@
 package PaqueteArbolBB;
 
-
+import PaqueteDominio.Productor;
 
 public class ArbolBB{
 	
@@ -24,7 +24,7 @@ public class ArbolBB{
     
     public void mostrarPreOrder(NodoBB a){
         if (a!=null){
-            System.out.print(a.getDato()+"   ");
+            System.out.print(a.getValor()+"   ");
             mostrarPreOrder(a.getIzq());
             mostrarPreOrder(a.getDer());
         }
@@ -37,7 +37,7 @@ public class ArbolBB{
     public void mostrarInOrder(NodoBB a){
         if (a!=null){
             mostrarInOrder(a.getIzq());
-            System.out.print(a.getDato()+"  ");
+            System.out.print(a.getValor()+"  ");
             mostrarInOrder(a.getDer());
         }
     }
@@ -50,7 +50,7 @@ public class ArbolBB{
         if (a!=null){
             mostrarPosOrder(a.getIzq());
             mostrarPosOrder(a.getDer());
-            System.out.print(a.getDato()+"  ");
+            System.out.print(a.getValor()+"  ");
         }
     }
 
@@ -70,9 +70,9 @@ public class ArbolBB{
 			existe = false;
 		else
         {
-            if( e == a.getDato() )
+            if( e == a.getValor() )
 				existe=true;
-			else if( e < a.getDato() )
+			else if( e < a.getValor() )
 				existe = existe(e, a.getIzq());
 			else
 				existe = existe(e, a.getDer());
@@ -84,9 +84,9 @@ public class ArbolBB{
 		if(nodo == null) {
 			return nodo;
 		} else {
-			if(n == nodo.getDato() ) {
+			if(n == nodo.getValor() ) {
 				return nodo;
-			} else if( n < nodo.getDato() ) {
+			} else if( n < nodo.getValor() ) {
 				return obtenerElemento(n, nodo.getIzq());
 			} else {
 				return obtenerElemento(n, nodo.getDer());
@@ -120,31 +120,31 @@ public class ArbolBB{
 		return peso;
 	}
 
-    public void insertarElemento(int n, NodoBB nodo) {
+    public void insertarElemento(int n, Object o, NodoBB nodo) {
 		NodoBB nuevo = null;
 
         if (this.esArbolVacio())
-            this.raiz = new NodoBB(n);
+            this.raiz = new NodoBB(o,n);
 
-        else if( n < nodo.getDato())
+        else if( n < nodo.getValor())
         {   // n < dato => insertar en subarbol izq
             if(nodo.getIzq() == null)
             {
-                nuevo = new NodoBB(n);
+                nuevo = new NodoBB(o,n);
                 nodo.setIzq(nuevo);
              }
              else
-                 insertarElemento(n, nodo.getIzq());
+                 insertarElemento(n, o,nodo.getIzq());
         }
-        else if( n > nodo.getDato())
+        else if( n > nodo.getValor())
         {   // n > dato => insertar en subarbol derecho
 			if(nodo.getDer() == null)
             {
-				nuevo = new NodoBB(n);
+				nuevo = new NodoBB(o,n);
 				nodo.setDer(nuevo);
 			}
             else
-				insertarElemento(n, nodo.getDer());
+				insertarElemento(n, o, nodo.getDer());
 		}
 	}
     
@@ -171,26 +171,46 @@ public class ArbolBB{
             return nodo.getDer();
     }
     
-    public void insertar( int x ) {
-        raiz = insertar( x, raiz );
+    public boolean insertar( int x, Object o ) {
+    	
+        //raiz = insertar( x, o, raiz );
+    	
+    	return insertarSinRepetir(x,o,raiz);
     }
     
-    private NodoBB insertar( int x, NodoBB a ) {
-        if( a == null )
-            a = new NodoBB( x );
-        else if(x < a.getDato() )
-            a.setIzq( insertar( x, a.getIzq()) ); // a.izq = insertar(x, a.izq); con los atributos públicos
-        else if( x > a.getDato() )
-            a.setDer( insertar( x, a.getDer()) );	// a.der = insertar(x, a.der); con los atributos públicos
-        return a;
+//    private NodoBB insertar( int x, Object o, NodoBB a ) {
+//        if( a == null )
+//            a = new NodoBB(o,x);
+//        else if(x == a.getValor())
+//        	
+//        else if(x < a.getValor() )
+//            a.setIzq( insertar( x, o, a.getIzq()) ); // a.izq = insertar(x, a.izq); con los atributos públicos
+//        else if( x > a.getValor() )
+//            a.setDer( insertar( x, o, a.getDer()) );	// a.der = insertar(x, a.der); con los atributos públicos
+//        return a;
+//    }
+    
+    //sin repetir valores
+    private boolean insertarSinRepetir(int valor, Object o, NodoBB a){
+    	if(a == null) {
+    		a = new NodoBB(o,valor);
+    		return true;
+    	}
+    	else {
+    		if(raiz.getValor() > valor)
+    			return insertarSinRepetir(valor,o,a.getIzq());
+    		else if(raiz.getValor() < valor)
+    			return insertarSinRepetir(valor,o,a.getDer());
+    		else
+    			return false;
+    	}
     }
     
     public int altura(){
-    	int alt = Altura(raiz);
-    	return alt;
+    	return Altura(raiz);
     }
     
-    public int Altura (NodoBB a){
+    private int Altura (NodoBB a){
     	int Altder = (a.getDer() == null? 0:1 + Altura (a.getDer()));
     	int Altizq = (a.getIzq() == null? 0:1 + Altura (a.getIzq()));
     	return Math.max(Altder,Altizq);
@@ -200,7 +220,7 @@ public class ArbolBB{
     	
     	if (raiz == null)
     		return;
-    	if (raiz.getDato() == a) {
+    	if (raiz.getValor() == a) {
     		if (raiz.getIzq() == null) {
     			raiz = raiz.getDer();
     		}else {
@@ -214,7 +234,7 @@ public class ArbolBB{
     			}
     		}
     	}else {
-    		if (raiz.getDato() > a) {
+    		if (raiz.getValor() > a) {
     			ArbolBB izq = this.subAIzq();
     			izq.eliminar(a);
     			raiz.setIzq(izq.raiz);
@@ -250,5 +270,18 @@ public class ArbolBB{
     	}else {
     		return maximo(a.getDer());
     	}
+    }
+    
+    //POST: Retorna 0 si pudo agregar el productor al �rbol
+    //		Retorna 1,2 o 3 si no pudo validar formato
+    //		Retorna 4 si ya existe el productor con esa c�dula
+    public int insertarProductor(String cedula, String nombre, String direccion, String email, String celular){
+    	Productor p = new Productor(cedula,nombre,direccion,email,celular);
+    	int retorno = p.validar();
+    	if(retorno == 0){
+    		if(!insertar(p.cedulaSoloNumeros(),p))
+    			retorno = 4;
+    	}
+    	return retorno;
     }
 }

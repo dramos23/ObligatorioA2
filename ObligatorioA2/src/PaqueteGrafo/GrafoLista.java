@@ -5,7 +5,7 @@ import PaqueteHash.Hash;
 import PaqueteLista.Lista;
 import PaqueteLista.NodoLista;
 
-public class GrafoLista implements IGrafo{
+public class GrafoLista {
 	private int size; //actualmente
 	private int cantNodos; //maximo
 	private Lista[] listaAdyacencia;
@@ -23,25 +23,47 @@ public class GrafoLista implements IGrafo{
 		this.vertices = new Punto[hash.getTamanio()];
 	}
 	
-	@Override
-	public void agregarVertice(Object v) {
+	//POST: Si retorna 1 es que ya hay registrados cantPuntos puntos
+	//		Si retorna 2 es que ya existe un punto en esas coordenadas
+	//		Si retorna 0 es que pudo insertarse el punto
+
+	public int agregarVertice(Object v) {
 		//this.nodosUsados[v]=true;
-		Punto p = (Punto)v;
-		if(size + 1 != cantNodos) {
+		if(!sePuedeInsertarPunto()){
+			return 1;
+		} else {
+			Punto p = (Punto)v;
 			int indiceInsertado = hash.Insertar(p);
-			vertices[indiceInsertado] = p;
-			this.size++;
+			if(indiceInsertado != -1) {
+				vertices[indiceInsertado] = p;
+				this.size++;
+				return 0;
+			}
+			return 2;
 		}
 	}
-	@Override
-	public void agregarArista(int origen, int destino, int peso) {
-		this.listaAdyacencia[origen].insertar(new Arista(destino,peso));		
+
+	//POST: Retorna 0 si se pudo agregar la arista
+	//		Retorna 1 si no existe uno de los dos puntos
+	//		Retorna 2 si ya existe la arista de ida o vuelta en el gráfo
+	public int agregarArista(Double coordXi, Double coordYi, Double coordXf, Double coordYf, int peso) {
+		int origen = hash.Existe(coordXi,coordYi);
+		int destino = hash.Existe(coordXf,coordYf);
+		if(origen == -1 || destino == -1)
+			return 1;
+		Arista ida = new Arista(destino,peso);
+		Arista vuelta = new Arista(origen,peso);
+		if(listaAdyacencia[origen].existe(ida) || listaAdyacencia[destino].existe(vuelta))
+			return 2;
+		this.listaAdyacencia[origen].insertar(ida);
+		this.listaAdyacencia[destino].insertar(vuelta);
+		return 0;				
 	}
-	@Override
-	public void eliminarVertice(Object v) {
-		Punto p = (Punto)v;
-		//this.nodosUsados[v]=false;
-		int indiceBorrado = hash.Borrar(p);
+	
+	public boolean eliminarVertice(Double coordX, Double coordY) {
+		
+		int indiceBorrado = hash.Borrar(coordX,coordY);
+		boolean retorno = false;
 		if(indiceBorrado != -1) {
 			vertices[indiceBorrado] = null;
 			this.size --;
@@ -50,32 +72,59 @@ public class GrafoLista implements IGrafo{
 			this.listaAdyacencia[indiceBorrado] = new Lista();
 			//Borrar aristas que llegan a v
 			for (int i = 0; i<hash.getTamanio(); i++)
-				this.listaAdyacencia[i].borrar(indiceBorrado);	
+				this.listaAdyacencia[i].borrar(indiceBorrado);
+			
+			retorno = true;
 		}	
+		return retorno;
 	}
-	@Override
-	public void eliminarArista(int origen, int destino) {
-		
+	
+	//POST: Retorna 0 si pudo eliminar la arista
+	//		Retorna 1 si no existe uno de los dos puntos
+	//		Retorna 2 si no existe la arista de ida o vuelta en el gráfo
+	public int eliminarArista(Double coordXi, Double coordYi, Double coordXf, Double coordYf) {
+		int origen = hash.Existe(coordXi,coordYi);
+		int destino = hash.Existe(coordXf,coordYf);
+		if(origen != -1 || destino != -1)
+			return 1;
+		else {
+			Arista ida = new Arista(destino);
+			Arista vuelta = new Arista(origen);
+			
+			if(!listaAdyacencia[origen].existe(ida) || !listaAdyacencia[destino].existe(vuelta)) //la segunda condición no es necesaria?
+				return 2;
+			listaAdyacencia[origen].borrar(ida);
+			listaAdyacencia[destino].borrar(vuelta);
+			return 0;
+		}
 	}
-	@Override
+	
 	public Lista verticesAdyacentes(Object v) {
 		Punto p = (Punto)v;
 		//return listaAdyacencia[v];
 		return null;
 	}
-	@Override
+	
 	public boolean sonAdyacentes(Object a, Object b) {
 		//return a <= cantNodos && listaAdyacencia[a].existe(new Arista(b));
 		return false;
 	}
-	@Override
+	
 	public boolean existeVertice(Object v) {
 		//return v <= cantNodos && nodosUsados[v];
 		return false;
 	}
-	@Override
+	
 	public boolean esVacio() {
 		return size == 0;
+	}
+	
+	public int getSize(){
+		return size;
+	}
+	
+	public boolean sePuedeInsertarPunto(){
+		return size + 1 != cantNodos;
 	}
 	
 	public void caminoMinimo(int verticeInicial) {

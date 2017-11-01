@@ -6,7 +6,7 @@ public interface IGrafo {
 	//Pre: v no pertenece al grafo. 
 		// 0<v<=capacidad grafo
 		//Post: Agrega el vértice v al grafo
-		public void agregarVertice(Object v);
+		public int agregarVertice(Object v);
 		
 		//Pre: origen y destino son los índices de vértices ya ingresados en el grafo
 		//Post: Agrega la arista origen-destino de peso "peso" en el grafo
@@ -14,11 +14,11 @@ public interface IGrafo {
 		
 		//Pre: El vértice v existe en el grafo
 		//Post: Elimina el vértice y todas las aristas a las que pertenezca
-		public void eliminarVertice(Object v);
+		public boolean eliminarVertice(Object v);
 		
 		//Pre: La arista origen - destino existe en el grafo
 		//Post: Elimina la arista origen - destino
-		public void eliminarArista(int origen, int destino);
+		public void eliminarArista(Object a, Object b);
 
 		//Pre: El vértice v existe en el grafo
 		//Post: Retorna una lista con los vértices adyacentes de v.

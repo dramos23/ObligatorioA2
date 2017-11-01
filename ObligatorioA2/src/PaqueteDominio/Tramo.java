@@ -35,8 +35,4 @@ public class Tramo {
 		this.puntoF = puntoF;
 		this.peso = peso;
 	}
-	
-	
-	
-	
 }

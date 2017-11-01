@@ -3,29 +3,37 @@ package PaqueteArbolBB;
 public class NodoBB {
     //Atributos
     private int valor;
-    //private Object dato;
+    private Object objeto;
 	private NodoBB der;
 	private NodoBB izq;
 
     //Constructores
-    public NodoBB(int n){
-        valor = n;
+    public NodoBB(Object objeto, int valor){
+        this.objeto = objeto;
+        this.valor = valor;
         izq = null;
         der = null;
      }
 
-    public NodoBB(int n, NodoBB i, NodoBB d){
-        valor = n;
-        izq = i;
-        der = d;
-     }
+//    public NodoBB(int n, NodoBB i, NodoBB d){
+//        valor = n;
+//        izq = i;
+//        der = d;
+//     }
 
-    //Dato
-    public int getDato(){
-        return valor;
+    public Object getObjeto(){
+        return objeto;
     }
-    public void setDato(int n){
-        valor = n;
+    public void setDato(Object o){
+        objeto = o;
+    }
+    
+    public int getValor(){
+    	return valor;
+    }
+    
+    public void setValor(int valor){
+    	this.valor = valor;
     }
     
     //Derecho

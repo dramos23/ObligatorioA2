@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import PaqueteDominio.Punto;
 
-public class Hash implements IHash {
+public class Hash {
 
 	private int tamanio;
 	private String[] estados; //O - ocupado, V - vacío, E - eliminado
@@ -28,40 +28,55 @@ public class Hash implements IHash {
 	//PRE: Punto validado
 	//POST: Punto insertado en una posición que se retorna. Estado en esa posición en "O"
 	public int Insertar(Object o) {
-		Punto p = (Punto)o;
-		int n = p.getClave();
 		
-		int indice = n % this.tamanio;
-		int R = numeroPrimoMenorA(this.tamanio-1); 
-		int j = 0;
-		while(this.estados[indice].equals("O") && j < this.tamanio) { 
-			indice = (indice + j*( R - n % R )) % this.tamanio; 
-			j++;		
+		Punto p = (Punto)o;
+		int indice = Existe(p.getCoordX(),p.getCoordY());
+		
+		if(indice == -1){
+			
+			int n = this.getClave(p.getCoordX(),p.getCoordY());
+			
+			indice = n % this.tamanio;
+			int R = numeroPrimoMenorA(this.tamanio-1); 
+			int j = 0;
+			
+			while(this.estados[indice].equals("O") && j < this.tamanio) {
+				indice = (indice + j*( R - n % R )) % this.tamanio; 
+				j++;		
+			}
+			this.claves[indice] = n;
+			this.estados[indice] = "O";
+			return indice;
 		}
-		this.claves[indice] = n;
-		this.estados[indice] = "O";
 		return indice;
 	}
 	
 	//PRE: Punto validado
 	//POST: Punto borrado en una posición que se retorna. Estado en esa posición en "E"
-	public int Borrar(Object o){
-		Punto p = (Punto)o;
+	public int Borrar(Double x, Double y){
+		int indice = Existe(x,y);
+		if(indice != -1){
+			this.claves[indice] = 0; //reinicializo en 0
+			this.estados[indice] = "E";
+		}
+		return indice;
+	};
+	
+	//Retorna -1 si no existe.
+	public int Existe(Double coordX,Double coordY) {
 		int R = numeroPrimoMenorA(this.tamanio-1);
-		int n = p.getClave();
+		int n = this.getClave(coordX,coordY);
 		int indice = n % this.tamanio;
 		int j = 0;
 		while ( j < this.tamanio ) {
 			if (this.estados[indice].equals("O") && this.claves[indice] == n) {
-				this.claves[indice] = 0; //reinicializo en 0
-				this.estados[indice] = "E";
 				return indice;
 			}	
 			indice = (indice + j*( R - n % R )) % this.tamanio;
 			j++;
 		}
-		return -1;		
-	};
+		return -1;
+	}
 	
 	private int numeroPrimoMenorA(int n) {
 		int contador = 1;
@@ -99,6 +114,14 @@ public class Hash implements IHash {
 			ent = 0;
 		}
 		return n;
+	}
+	
+	public int getClave(Double coordX, Double coordY){
+		String clave = coordX*2+","+coordY;
+		int disp = 0;
+		for(int i = 0; i<clave.length();i++)
+			disp+=(int)clave.charAt(i);
+		return disp;
 	}
 	
 }

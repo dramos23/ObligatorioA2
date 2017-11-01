@@ -2,7 +2,7 @@ package PaqueteDominio;
 
 import PaqueteSistema.Sistema;
 
-public class Plantacion extends Punto  {
+public class Plantacion extends Punto{
 
 	private int capacidad;
 	private String cedula_productor;

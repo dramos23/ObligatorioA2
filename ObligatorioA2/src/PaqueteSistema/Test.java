@@ -1,13 +1,12 @@
 package PaqueteSistema;
 
-import PaqueteDominio.Ciudad;
-import PaqueteDominio.Punto;
-import PaqueteHash.Hash;
 
 public class Test {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		Sistema s = new Sistema();
+		s.inicializarSistema(3);
 //		Double x = 34.265;
 //		Double y = 56.325;
 //		String conversion = x + "," + y;
@@ -20,12 +19,14 @@ public class Test {
 //		int resH2 = h(conversion2);
 //		System.out.println(resH2);
 		
-		Hash h = new Hash(11);
-		Double x = 35.645;
-		Double y = 54.651;
-		String nombre = "asd";
-		Ciudad c = new Ciudad(nombre,x,y);
-		h.Insertar(c);
+//		Hash h = new Hash(11);
+//		Double x = 35.645;
+//		Double y = 54.651;
+//		String nombre = "asd";
+//		Ciudad c = new Ciudad(nombre,x,y);
+//		h.Insertar(c);
+		
+		
 	}
 	
 //	public static int h (String clave) {

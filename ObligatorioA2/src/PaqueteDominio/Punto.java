@@ -1,6 +1,6 @@
 package PaqueteDominio;
 
-public abstract class Punto {
+public abstract class Punto{
 
 	private Double coordX;
 	private Double coordY;
@@ -44,14 +44,6 @@ public abstract class Punto {
 		this.coordX = coordX;
 		this.coordY = coordY;
 		this.nombre = nombre;
-	}
-	
-	public int getClave(){
-		String clave = coordX*2+","+coordY;
-		int disp = 0;
-		for(int i = 0; i<clave.length();i++)
-			disp+=(int)clave.charAt(i);
-		return disp;
 	}
 	
 	@Override
