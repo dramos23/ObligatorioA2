@@ -173,9 +173,11 @@ public class ArbolBB{
     
     public boolean insertar( int x, Object o ) {
     	
-        //raiz = insertar( x, o, raiz );
-    	
-    	return insertarSinRepetir(x,o,raiz);
+        this.raiz = insertarSinRepetir(x,o,this.raiz);
+        if ( this.raiz.getValor() != -1 )
+        	return true;
+        return false;
+        
     }
     
 //    private NodoBB insertar( int x, Object o, NodoBB a ) {
@@ -191,18 +193,19 @@ public class ArbolBB{
 //    }
     
     //sin repetir valores
-    private boolean insertarSinRepetir(int valor, Object o, NodoBB a){
+    private NodoBB insertarSinRepetir(int valor, Object o, NodoBB a){
     	if(a == null) {
     		a = new NodoBB(o,valor);
-    		return true;
+    		return a;
     	}
     	else {
     		if(raiz.getValor() > valor)
-    			return insertarSinRepetir(valor,o,a.getIzq());
+    			a.setIzq(insertarSinRepetir(valor,o,a.getIzq()));
     		else if(raiz.getValor() < valor)
-    			return insertarSinRepetir(valor,o,a.getDer());
+    			a.setDer(insertarSinRepetir(valor,o,a.getDer()));
     		else
-    			return false;
+    			a = new NodoBB();
+    			return a;
     	}
     }
     

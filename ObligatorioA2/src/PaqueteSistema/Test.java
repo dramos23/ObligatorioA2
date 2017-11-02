@@ -1,40 +1,25 @@
 package PaqueteSistema;
 
+import static org.junit.jupiter.api.Assertions.*;
 
-public class Test {
+class Test {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	@org.junit.jupiter.api.Test
+	void test() {
 		Sistema s = new Sistema();
-		s.inicializarSistema(3);
-//		Double x = 34.265;
-//		Double y = 56.325;
-//		String conversion = x + "," + y;
-//		int resH = h(conversion);
-//		System.out.println(resH);
-//		
-//		Double x2 = 56.325;
-//		Double y2 = 34.265;
-//		String conversion2 = x2 + "," + y2;
-//		int resH2 = h(conversion2);
-//		System.out.println(resH2);
 		
-//		Hash h = new Hash(11);
-//		Double x = 35.645;
-//		Double y = 54.651;
-//		String nombre = "asd";
-//		Ciudad c = new Ciudad(nombre,x,y);
-//		h.Insertar(c);
+		//inicializo el sistema con 3 puntos
+		assertEquals(Retorno.Resultado.OK, s.inicializarSistema(3).resultado);
 		
-		
+		//Registro 2 productor
+		assertEquals(Retorno.Resultado.OK, s.registrarProductor("4.798.128-7", "Daniel", "Copacabana M31 S12", "daniel.r.23@gmail.com", "098369129").resultado);
+		assertEquals(Retorno.Resultado.ERROR_1, s.registrarProductor("A.798.128-7", "Daniel", "Copacabana M31 S12", "daniel.r.23@gmail.com", "098369129").resultado);
+		assertEquals(Retorno.Resultado.ERROR_2, s.registrarProductor("4.798.128-7", "Daniel", "Copacabana M31 S12", "daniel.r.23@gmail.com", "078369129").resultado);
+		assertEquals(Retorno.Resultado.ERROR_3, s.registrarProductor("4.798.128-7", "Daniel", "Copacabana M31 S12", "daniel.r.23gmail.com", "098369129").resultado);
+		assertEquals(Retorno.Resultado.ERROR_4, s.registrarProductor("4.798.128-7", "Daniel", "Copacabana M31 S12", "daniel.r.23@gmail.com", "098369129").resultado);
+		//Registro 1 ciudad
+		//Registro 1 plantacion
+		//Registro 1 silo
 	}
-	
-//	public static int h (String clave) {
-//		int disp = 0;
-//		for(int i = 0; i<clave.length();i++)
-//			disp+=(int)clave.charAt(i);
-//		
-//		return disp % 11;
-//	}
 
 }

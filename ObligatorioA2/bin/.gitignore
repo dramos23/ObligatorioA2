@@ -1,7 +1,5 @@
-/PaqueteArbolBB/
-/PaqueteDominio/
-/PaqueteGrafo/
-/PaqueteHash/
-/PaqueteLista/
+/Test.class
+/PaqueteTest/
 /PaqueteSistema/
-/PaquetePruebas/
+/PaqueteDominio/
+/PaqueteArbolBB/

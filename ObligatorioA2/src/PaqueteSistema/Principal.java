@@ -6,8 +6,8 @@ public class Principal {
 
 	public static void main(String[] args) {
 		Sistema s = new Sistema();
-		s.inicializarSistema(20);
-
+		System.out.println(s.inicializarSistema(3));
+		System.out.println(s.registrarProductor("4.798.128-7", "Daniel", "Copacabana M31 S12", "daniel.r.23@gmail.com", "098369129"));
 	}
 
 }

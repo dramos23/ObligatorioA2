@@ -15,11 +15,9 @@ public class NodoBB {
         der = null;
      }
 
-//    public NodoBB(int n, NodoBB i, NodoBB d){
-//        valor = n;
-//        izq = i;
-//        der = d;
-//     }
+    public NodoBB(){
+        valor = -1;
+    }
 
     public Object getObjeto(){
         return objeto;

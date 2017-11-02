@@ -1,5 +1,8 @@
 package PaqueteDominio;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Productor {
 
 	private String cedula;
@@ -7,6 +10,9 @@ public class Productor {
 	private String direccion;
 	private String email;
 	private String celular;
+	private static final String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+	private static final String PATTERN_CELULAR = "^[09]{2}\\d{7}$";
+	private static final String PATTERN_CEDULA = "^\\d{1}.\\d{3}.\\d{3}-\\d{1}$";
 	
 	public String getCedula() {
 		return cedula;
@@ -62,13 +68,19 @@ public class Productor {
 //		1. Si la cédula cédula no cumple el formato N.NNN.NNN-N
 //		2. Si el número de celular celular no cumple el formato 09NNNNNNN
 //		3. Si el email email no cumple el formato de direcciones de e-mail
+		if (!validarCedula(this.cedula))
+			return 1;
+		if (!validarCelular(this.celular))
+			return 2;
+		if (!validarEmail(this.email))
+			return 3;
 		return 0;
 	}
 	
 	public int cedulaSoloNumeros(){
 		String retorno = this.cedula;
-		retorno = cedula.replace("-","");
-		retorno = cedula.replace(".","");
+		retorno = retorno.replace("-","");
+		retorno = retorno.replace(".","");
 		return Integer.parseInt(retorno);
 	}
 	
@@ -77,4 +89,29 @@ public class Productor {
 		return cedulaSoloNumeros() + ";" + nombre +  ";" + celular;
 	}
 	
+    
+ 
+    private boolean validarEmail(String email) {
+ 
+        Pattern pattern = Pattern.compile(PATTERN_EMAIL);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+ 
+    }
+    
+    private boolean validarCelular(String celular) {
+    	 
+        Pattern pattern = Pattern.compile(PATTERN_CELULAR);
+        Matcher matcher = pattern.matcher(celular);
+        return matcher.matches();
+ 
+    }
+	
+    private boolean validarCedula(String cedula) {
+   	 
+        Pattern pattern = Pattern.compile(PATTERN_CEDULA);
+        Matcher matcher = pattern.matcher(cedula);
+        return matcher.matches();
+ 
+    }
 }
