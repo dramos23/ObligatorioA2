@@ -89,24 +89,32 @@ public class Sistema implements ISistema {
 		
 		Retorno ret = new Retorno();
 		
-		if(capacidad <= 0)
+		if(!mapa.sePuedeInsertarPunto()){
+			ret.resultado = Resultado.ERROR_1;
+		} else if(capacidad <= 0)
 			ret.resultado = Resultado.ERROR_2;
-		else if(productores.existeElemento(-1)) //TO DO ÁRBOL BINARIO DE BUSQUEDA
-			ret.resultado = Resultado.ERROR_4;
 		else {
 			Plantacion p = new Plantacion(nombre,coordX,coordY,cedula_productor,capacidad);
-			switch(mapa.agregarVertice(p)){
-			case 0:
-				ret.resultado = Resultado.OK;
-				break;
-			case 1:
-				ret.resultado = Resultado.ERROR_1;
-				break;
-			case 2:
+			int indice = mapa.existeVertice(p);
+			if(indice != -1){
 				ret.resultado = Resultado.ERROR_3;
-				break;
+			} else if(!productores.existeProductor(cedula_productor)){
+				ret.resultado = Resultado.ERROR_4;
+			} else {
+				//No debería caer si llega acá
+				switch(mapa.agregarVertice(p)){
+				case 0:
+					ret.resultado = Resultado.OK; 
+					break;
+				case 1:
+					ret.resultado = Resultado.ERROR_1; 
+					break;
+				case 2:
+					ret.resultado = Resultado.ERROR_3;
+					break;
+				}
 			}
-		}		
+		}
 		return ret;
 	}
 
@@ -114,7 +122,9 @@ public class Sistema implements ISistema {
 	public Retorno registrarSilo(String nombre, Double coordX, Double coordY, int capacidad) {
 		Retorno ret = new Retorno();
 		
-		if(capacidad <= 0)
+		if(!mapa.sePuedeInsertarPunto()){
+			ret.resultado = Resultado.ERROR_1;
+		} else if(capacidad <= 0)
 			ret.resultado = Resultado.ERROR_2;
 		else {
 			Silo s = new Silo(nombre, coordX, coordY, capacidad);
@@ -123,13 +133,13 @@ public class Sistema implements ISistema {
 				ret.resultado = Resultado.OK;
 				break;
 			case 1:
-				ret.resultado = Resultado.ERROR_1;
+				ret.resultado = Resultado.ERROR_1; //No debería entrar acá
 				break;
 			case 2:
 				ret.resultado = Resultado.ERROR_3;
 				break;
 			}
-		}		
+		}	
 		return ret;
 	}
 
@@ -207,11 +217,24 @@ public class Sistema implements ISistema {
 	public Retorno listadoDePlantacionesEnCiudad(Double coordX, Double coordY) {
 		Retorno ret = new Retorno();
 		
-		ret.resultado = Resultado.NO_IMPLEMENTADA;
+//		ArrayList<Plantacion> plantacionesEnCiudad = mapa.obtenerPlantacionesEnCiudad(coordX,coordY);
+//		
+//		if(plantacionesEnCiudad == null){
+//			ret.resultado = Resultado.ERROR_1;
+//		} else {
+//			ret.valorString = "Listado de plantaciones en Ciudad "+ coordX + ", "+ coordY;
+//			for(Plantacion p: plantacionesEnCiudad){
+//				ret.valorString += p;
+//			}
+//			ret.resultado = Resultado.OK;
+//		}		
+//		return ret;
 		
+		ret.resultado = Resultado.NO_IMPLEMENTADA;
 		return ret;
 	}
 
+	//Preguntar como se calcula o de donde se obtiene la "capacidad remanente"
 	@Override
 	public Retorno listadoDeSilos() {
 		Retorno ret = new Retorno();
@@ -225,7 +248,8 @@ public class Sistema implements ISistema {
 	public Retorno listadoProductores() {
 		Retorno ret = new Retorno();
 		
-		ret.resultado = Resultado.NO_IMPLEMENTADA;
+		ret.valorString = productores.obtenerObjetosInOrder();
+		ret.resultado = Resultado.OK;
 		
 		return ret;
 	}

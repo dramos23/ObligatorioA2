@@ -62,6 +62,10 @@ public class Productor {
 		this.celular = celular;
 	}
 	
+	public Productor(){
+		
+	}
+	
 	public int validar(){
 		//TO-DO
 		//0 si todo OK
@@ -113,5 +117,9 @@ public class Productor {
         Matcher matcher = pattern.matcher(cedula);
         return matcher.matches();
  
+    }
+    
+    public boolean validarMiCedula(){
+    	return validarCedula(this.cedula);
     }
 }

@@ -30,5 +30,10 @@ public class Plantacion extends Punto{
 		this.setTipoPunto(Sistema.TipoPunto.PLANTACIÓN);
 	}
 	
+	@Override
+	public String toString(){
+		return this.getCoordX() + ";"+ this.getCoordY();
+	}
+	
 	
 }

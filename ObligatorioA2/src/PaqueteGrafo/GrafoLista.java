@@ -71,8 +71,9 @@ public class GrafoLista {
 			//Borrar aristas que salen de v
 			this.listaAdyacencia[indiceBorrado] = new Lista();
 			//Borrar aristas que llegan a v
+			Arista a = new Arista(indiceBorrado);
 			for (int i = 0; i<hash.getTamanio(); i++)
-				this.listaAdyacencia[i].borrar(indiceBorrado);
+				this.listaAdyacencia[i].borrar(a);
 			
 			retorno = true;
 		}	
@@ -85,7 +86,7 @@ public class GrafoLista {
 	public int eliminarArista(Double coordXi, Double coordYi, Double coordXf, Double coordYf) {
 		int origen = hash.Existe(coordXi,coordYi);
 		int destino = hash.Existe(coordXf,coordYf);
-		if(origen != -1 || destino != -1)
+		if(origen == -1 || destino == -1)
 			return 1;
 		else {
 			Arista ida = new Arista(destino);
@@ -110,9 +111,10 @@ public class GrafoLista {
 		return false;
 	}
 	
-	public boolean existeVertice(Object v) {
-		//return v <= cantNodos && nodosUsados[v];
-		return false;
+	//Retorna -1 si no está. 
+	public int existeVertice(Object v) {
+		Punto p = (Punto)v;
+		return hash.Existe(p.getCoordX(), p.getCoordY());
 	}
 	
 	public boolean esVacio() {
@@ -124,7 +126,7 @@ public class GrafoLista {
 	}
 	
 	public boolean sePuedeInsertarPunto(){
-		return size + 1 != cantNodos;
+		return size < cantNodos;
 	}
 	
 	public void caminoMinimo(int verticeInicial) {

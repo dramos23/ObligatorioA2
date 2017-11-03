@@ -29,6 +29,20 @@ public class ArbolBB{
             mostrarPreOrder(a.getDer());
         }
     }
+    
+    public String obtenerObjetosInOrder(){
+    	return obtenerObjetosInOrder(this.raiz);
+    }
+    
+    public String obtenerObjetosInOrder(NodoBB a){
+    	String retorno = "";
+        if (a != null){
+        	retorno += obtenerObjetosInOrder(a.getIzq());
+            retorno += a.getObjeto();
+            retorno += obtenerObjetosInOrder(a.getDer());
+        }
+        return retorno;
+    }
 
     public void mostrarInOrder(){
     	mostrarInOrder(this.raiz);
@@ -63,6 +77,17 @@ public class ArbolBB{
 			return false;
 		}
 	}
+    
+    public boolean existeProductor(String cedula){
+    	Productor p = new Productor();
+    	p.setCedula(cedula);
+    	if(p.validarMiCedula()){
+    		int cedulaSoloNumeros = p.cedulaSoloNumeros();
+    		return existeElemento(cedulaSoloNumeros);
+    	} else {
+    		return false;
+    	}
+    }
 
     public boolean existe(int e, NodoBB a) {
 	   boolean existe;
@@ -172,13 +197,20 @@ public class ArbolBB{
     }
     
     public boolean insertar( int x, Object o ) {
-    	
-        this.raiz = insertarSinRepetir(x,o,this.raiz);
-        if ( this.raiz.getValor() != -1 )
-        	return true;
-        return false;
-        
+    	if(raiz == null){
+    		raiz = new NodoBB(o,x);
+    		return true;
+    	} else {
+    		return insertarSinRepetir(x,o,this.raiz);
+    	}        
     }
+    
+//    public NodoBB insertar( int x, Object o ) {
+//    	
+//    	return insertarSinRepetir(x,o,this.raiz);
+//    	
+//    }        
+    
     
 //    private NodoBB insertar( int x, Object o, NodoBB a ) {
 //        if( a == null )
@@ -193,21 +225,37 @@ public class ArbolBB{
 //    }
     
     //sin repetir valores
-    private NodoBB insertarSinRepetir(int valor, Object o, NodoBB a){
+    private boolean insertarSinRepetir(int valor, Object o, NodoBB a){
     	if(a == null) {
     		a = new NodoBB(o,valor);
-    		return a;
+    		return true;
     	}
     	else {
     		if(raiz.getValor() > valor)
-    			a.setIzq(insertarSinRepetir(valor,o,a.getIzq()));
+    			return insertarSinRepetir(valor,o,a.getIzq());
     		else if(raiz.getValor() < valor)
-    			a.setDer(insertarSinRepetir(valor,o,a.getDer()));
+    			return insertarSinRepetir(valor,o,a.getDer());
     		else
-    			a = new NodoBB();
-    			return a;
+    			return false;
     	}
     }
+    
+//    private NodoBB insertarSinRepetir(int valor, Object o, NodoBB a){
+//    	if(a == null) {
+//    		a = new NodoBB(o,valor);
+//    		return a;
+//    	}
+//    	else {
+//    		if(raiz.getValor() > valor)
+//    			
+//    			return a.setIzq(insertarSinRepetir(valor,o,a.getIzq()));
+//    		else if(raiz.getValor() < valor)
+//    			return a.setDer(insertarSinRepetir(valor,o,a.getDer()));
+//    		else
+//    			a = new NodoBB();
+//    			return a;
+//    	}
+//    }
     
     public int altura(){
     	return Altura(raiz);

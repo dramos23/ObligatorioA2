@@ -20,13 +20,15 @@ public class Hash {
 	
 	public Hash (int tam) {
 		this.tamanio = numeroPrimoMayorA(tam);
-		this.estados = new String[tam];
-		this.claves = new int[tam];
+		this.estados = new String[tamanio];
+		this.claves = new int[tamanio];
 		Arrays.fill(this.estados, "V");
 	}
 	
 	//PRE: Punto validado
 	//POST: Punto insertado en una posición que se retorna. Estado en esa posición en "O"
+	// si indice = 0 ya existe el punto p en hash
+	// si indice = -1 no existe en hash
 	public int Insertar(Object o) {
 		
 		Punto p = (Punto)o;
@@ -48,7 +50,7 @@ public class Hash {
 			this.estados[indice] = "O";
 			return indice;
 		}
-		return indice;
+		return -1;
 	}
 	
 	//PRE: Punto validado
@@ -98,23 +100,24 @@ public class Hash {
 	}
 	
 	private int numeroPrimoMayorA(int n) {
-		int contador = 1;
-		int ent = 0;
-		for (int i = 0; i < n; i++) {
-			while (contador != n+i){
-				if (n+i % contador == 0) {
-					ent++;					
-				}
-				contador++;
+		for (int i = n; i <= Integer.MAX_VALUE; i++ ){
+			if (esPrimo(i)){
+				return i;
 			}
-			if ( ent == 2 ){
-				return n+i;
-			}
-			contador = 1;
-			ent = 0;
 		}
 		return n;
 	}
+	
+	private boolean esPrimo(int numero){
+		  int contador = 2;
+		  boolean primo=true;
+		  while ((primo) && (contador!=numero)){
+		    if (numero % contador == 0)
+		      primo = false;
+		    contador++;
+		  }
+		  return primo;
+		}
 	
 	public int getClave(Double coordX, Double coordY){
 		String clave = coordX*2+","+coordY;
@@ -123,5 +126,6 @@ public class Hash {
 			disp+=(int)clave.charAt(i);
 		return disp;
 	}
+	
 	
 }

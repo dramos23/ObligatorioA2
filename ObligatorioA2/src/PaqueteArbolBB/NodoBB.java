@@ -16,7 +16,7 @@ public class NodoBB {
      }
 
     public NodoBB(){
-        valor = -1;
+       
     }
 
     public Object getObjeto(){
@@ -39,7 +39,7 @@ public class NodoBB {
         return der;
     }
     public void setDer(NodoBB d){
-       der = d;
+    	der = d;
     }
     
     //Izquierdo
@@ -47,7 +47,7 @@ public class NodoBB {
         return izq;
     }
     public void setIzq(NodoBB i){
-        izq = i;
+    	izq = i;
     }
 
 }
