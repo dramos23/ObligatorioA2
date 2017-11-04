@@ -201,7 +201,7 @@ public class Sistema implements ISistema {
 
 	@Override
 	public Retorno mapaEstado() {
-		Lista p = mapa.ObtenerPuntoMasAdyacentes();
+		Punto[][] matrizPuntos = mapa.ObtenerPuntoMasAdyacentes();
 		
 		Retorno ret = new Retorno();
 		String url = "www.google.com.uy";

@@ -18,9 +18,16 @@ public class Lista implements ILista{
 	}
 	
 	@Override
+//	public void insertar(Object dato) {
+//		inicio = new NodoLista(dato, inicio);
+//	}
+	
 	public void insertar(Object dato) {
-		inicio = new NodoLista(dato, inicio);
+		NodoLista nuevo = new NodoLista(dato);
+		nuevo.setSig(inicio);
+		this.inicio = nuevo;
 	}
+
 
 	@Override
 	public void borrar(Object dato) {

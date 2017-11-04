@@ -190,26 +190,28 @@ public class GrafoLista {
 	}
 	
 
-	public Lista  ObtenerPuntoMasAdyacentes() {
-		Lista listaPuntos = new Lista();  
+	public Punto[][]  ObtenerPuntoMasAdyacentes() {
+		Punto[][] matriz = new Punto[hash.getTamanio()][hash.getTamanio()];
+		int x = 0;
 		for(int i = 0; i < vertices.length; i++){
 			if (this.vertices[i] != null) {
-				Lista puntos = new Lista();
+				int y = 0;
 				Punto p = (Punto)this.vertices[i];
-				puntos.insertar(p);
+				matriz[x][y] = p;
 				for(int j = 0; j < vertices.length; j++){
-				if (this.vertices[j] != null) {
-					Arista a = new Arista(j);
-					if (this.listaAdyacencia[i].existe(a)) {
-						p = (Punto)this.vertices[j];
-						puntos.insertar(p);
-					};
-				} 
-			}
-				listaPuntos.insertar(puntos);
+					if (this.vertices[j] != null) {
+						Arista a = new Arista(j);
+						if (this.listaAdyacencia[i].existe(a)) {
+							p = (Punto)this.vertices[j];
+							matriz[x][y] = p;
+							y++;
+						};
+					} 
+				}
+				x++;
 			}	
 		}
-		return listaPuntos;
+		return matriz;
 	}
 	
 	

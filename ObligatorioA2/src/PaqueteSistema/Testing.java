@@ -37,14 +37,13 @@ public class Testing {
 		assertEquals(Retorno.Resultado.ERROR_2, s.registrarSilo("Silo_1",-34.235199,-56.2185438,0).resultado);
 		assertEquals(Retorno.Resultado.ERROR_3, s.registrarSilo("Silo_2",-34.235199,-56.2185438,300000).resultado);
 		
-		assertEquals(Retorno.Resultado.OK, s.registrarTramo(-34.211054,-56.2192116,-34.235199,-56.2185438,100).resultado);
-		assertEquals(Retorno.Resultado.OK, s.registrarTramo(-34.211054,-56.2192116,-34.2417138,-56.2194872,100).resultado);
+		//Registro 2 tramo
+		assertEquals(Retorno.Resultado.OK, s.registrarTramo(-34.211054,-56.2192116,-34.235199,-56.2185438,100).resultado); //plantacion - silo
+		assertEquals(Retorno.Resultado.OK, s.registrarTramo(-34.211054,-56.2192116,-34.2417138,-56.2194872,100).resultado); //plantacion - ciudad 
 		
 		//assertEquals(Retorno.Resultado.OK, s.eliminarPunto(-34.211054,-56.2192116).resultado);
 		
 		//assertEquals(Retorno.Resultado.ERROR_1, s.eliminarTramo(-34.211054,-56.2192116,-34.235199,-56.2185438).resultado);
-		
-		//hay que arreglar el registrarProductor
 		
 		assertEquals(Retorno.Resultado.OK, s.mapaEstado());
 		
