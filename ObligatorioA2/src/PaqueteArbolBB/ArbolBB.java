@@ -196,20 +196,32 @@ public class ArbolBB{
             return nodo.getDer();
     }
     
-    public boolean insertar( int x, Object o ) {
-    	if(raiz == null){
-    		raiz = new NodoBB(o,x);
-    		return true;
-    	} else {
-    		return insertarSinRepetir(x,o,this.raiz);
-    	}        
-    }
+//    public boolean insertar( int x, Object o ) {
+//    	if(raiz == null){
+//    		raiz = new NodoBB(o,x);
+//    		return true;
+//    	} else {
+//    		return insertarSinRepetir(x,o,this.raiz);
+//    	}        
+//    }
     
 //    public NodoBB insertar( int x, Object o ) {
 //    	
 //    	return insertarSinRepetir(x,o,this.raiz);
 //    	
 //    }        
+    
+    public boolean insertar( int x, Object o ) {
+    	if(raiz == null){
+    		raiz = new NodoBB(o,x);
+    		return true;
+    	} else {
+    		NodoBB n = insertarSinRepetir(x,o,this.raiz);
+    		if (n.getValor() == 0)
+    			return false;
+    		return true;	
+    	}        
+    }
     
     
 //    private NodoBB insertar( int x, Object o, NodoBB a ) {
@@ -225,37 +237,46 @@ public class ArbolBB{
 //    }
     
     //sin repetir valores
-    private boolean insertarSinRepetir(int valor, Object o, NodoBB a){
-    	if(a == null) {
-    		a = new NodoBB(o,valor);
-    		return true;
-    	}
-    	else {
-    		if(raiz.getValor() > valor)
-    			return insertarSinRepetir(valor,o,a.getIzq());
-    		else if(raiz.getValor() < valor)
-    			return insertarSinRepetir(valor,o,a.getDer());
-    		else
-    			return false;
-    	}
-    }
-    
-//    private NodoBB insertarSinRepetir(int valor, Object o, NodoBB a){
+//    private boolean insertarSinRepetir(int valor, Object o, NodoBB a){
 //    	if(a == null) {
 //    		a = new NodoBB(o,valor);
-//    		return a;
+//    		return true;
 //    	}
 //    	else {
 //    		if(raiz.getValor() > valor)
-//    			
-//    			return a.setIzq(insertarSinRepetir(valor,o,a.getIzq()));
+//    			return insertarSinRepetir(valor,o,a.getIzq());
 //    		else if(raiz.getValor() < valor)
-//    			return a.setDer(insertarSinRepetir(valor,o,a.getDer()));
+//    			return insertarSinRepetir(valor,o,a.getDer());
 //    		else
-//    			a = new NodoBB();
-//    			return a;
+//    			return false;
 //    	}
 //    }
+    
+    private NodoBB insertarSinRepetir(int valor, Object o, NodoBB a){
+    	NodoBB n = new NodoBB();
+    	if (a == null) {
+    		n.setDato(o);
+    		n.setValor(valor);
+    		return n;
+    	}
+    	else {
+    		if (raiz.getValor() > valor) {
+    			n = insertarSinRepetir(valor,o,a.getIzq());
+    			if (n != null){
+    				a.setIzq(n);
+    				return a;
+    			}
+    			;
+    		} else if(raiz.getValor() < valor) {
+    			n = insertarSinRepetir(valor,o,a.getDer());
+    			if (n != null){
+    				a.setDer(n);
+    				return a;
+    			}
+    		}
+    	}
+    	return n;
+    }
     
     public int altura(){
     	return Altura(raiz);
@@ -335,4 +356,5 @@ public class ArbolBB{
     	}
     	return retorno;
     }
+    
 }

@@ -16,6 +16,7 @@ public class Testing {
 		
 		//Registro 2 productor
 		assertEquals(Retorno.Resultado.OK, s.registrarProductor("4.798.128-7", "Daniel", "Copacabana M31 S12", "daniel.r.23@gmail.com", "098369129").resultado);
+		assertEquals(Retorno.Resultado.OK, s.registrarProductor("4.868.799-1", "Adrián", "Lorenzo Pérez 3171", "gandeladri@gmail.com", "099553848").resultado);
 		assertEquals(Retorno.Resultado.ERROR_1, s.registrarProductor("A.798.128-7", "Daniel", "Copacabana M31 S12", "daniel.r.23@gmail.com", "098369129").resultado);
 		assertEquals(Retorno.Resultado.ERROR_2, s.registrarProductor("4.798.128-7", "Daniel", "Copacabana M31 S12", "daniel.r.23@gmail.com", "078369129").resultado);
 		assertEquals(Retorno.Resultado.ERROR_3, s.registrarProductor("4.798.128-7", "Daniel", "Copacabana M31 S12", "daniel.r.23gmail.com", "098369129").resultado);
@@ -41,7 +42,7 @@ public class Testing {
 		assertEquals(Retorno.Resultado.ERROR_1, s.eliminarTramo(-34.211054,-56.2192116,-34.235199,-56.2185438).resultado);
 		
 		//hay que arreglar el registrarProductor
-		assertEquals(Retorno.Resultado.OK, s.registrarProductor("4.868.799-1", "Adrián", "Lorenzo Pérez 3171", "gandeladri@gmail.com", "099553848").resultado);
+		
 		
 		assertEquals(Retorno.Resultado.OK, s.listadoProductores().resultado);
 		
