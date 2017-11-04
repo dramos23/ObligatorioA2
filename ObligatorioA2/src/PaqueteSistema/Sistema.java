@@ -1,10 +1,14 @@
 package PaqueteSistema;
 
+import java.util.List;
+
 import PaqueteArbolBB.ArbolBB;
 import PaqueteDominio.Ciudad;
 import PaqueteDominio.Plantacion;
+import PaqueteDominio.Punto;
 import PaqueteDominio.Silo;
 import PaqueteGrafo.GrafoLista;
+import PaqueteLista.Lista;
 import PaqueteSistema.Retorno.Resultado;
 
 public class Sistema implements ISistema {
@@ -197,8 +201,11 @@ public class Sistema implements ISistema {
 
 	@Override
 	public Retorno mapaEstado() {
-		Retorno ret = new Retorno();
+		Lista p = mapa.ObtenerPuntoMasAdyacentes();
 		
+		Retorno ret = new Retorno();
+		String url = "www.google.com.uy";
+		Navegador.openURL(url);
 		ret.resultado = Resultado.NO_IMPLEMENTADA;
 		
 		return ret;

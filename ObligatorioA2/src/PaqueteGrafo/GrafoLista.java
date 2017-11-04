@@ -1,5 +1,6 @@
 package PaqueteGrafo;
 
+
 import PaqueteDominio.Punto;
 import PaqueteHash.Hash;
 import PaqueteLista.Lista;
@@ -101,8 +102,16 @@ public class GrafoLista {
 	}
 	
 	public Lista verticesAdyacentes(Object v) {
-		Punto p = (Punto)v;
-		//return listaAdyacencia[v];
+//		Punto p = (Punto)v;
+//		ArrayList<Punto> misAdyacentes = new ArrayList<Punto>();
+//		//return listaAdyacencia[v];
+//		for(int i = 0; i < cantNodos; i++) { 
+//			if(sonAdyacentes(v,i)){
+//				//obtengo peso de la arista.
+//				costos[i] = obtenerArista(verticeInicial,i).getPeso(); 
+//				predecesores[i] = verticeInicial;
+//			}
+//		}
 		return null;
 	}
 	
@@ -179,4 +188,47 @@ public class GrafoLista {
 	public Arista obtenerArista(int origen, int destino) {
 		return ((Arista)listaAdyacencia[origen].recuperar(destino));
 	}
+	
+
+	public Lista  ObtenerPuntoMasAdyacentes() {
+		Lista listaPuntos = new Lista();  
+		for(int i = 0; i < vertices.length; i++){
+			if (this.vertices[i] != null) {
+				Lista puntos = new Lista();
+				Punto p = (Punto)this.vertices[i];
+				puntos.insertar(p);
+				for(int j = 0; j < vertices.length; j++){
+				if (this.vertices[j] != null) {
+					Arista a = new Arista(j);
+					if (this.listaAdyacencia[i].existe(a)) {
+						p = (Punto)this.vertices[j];
+						puntos.insertar(p);
+					};
+				} 
+			}
+				listaPuntos.insertar(puntos);
+			}	
+		}
+		return listaPuntos;
+	}
+	
+	
+//	for(int j = 0; j < vertices.length; j++){
+//		if (this.vertices[j] != null) {
+//			Arista a = new Arista(j);
+//			if (this.listaAdyacencia[i].existe(a)) {
+//				p = (Punto)this.vertices[j];
+//				puntos.insertar(p);
+//			};
+//		} 
+//	}
+	
+//	for(int j = 0; j < vertices.length; j++){
+//		Arista a = obtenerArista(i, j);
+//		if (a != null) {
+//			int b = a.getDestino();
+//			p = (Punto)this.vertices[b];
+//		}
+//	}
+	
 }
