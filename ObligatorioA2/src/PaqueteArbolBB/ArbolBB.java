@@ -36,10 +36,17 @@ public class ArbolBB{
     
     public String obtenerObjetosInOrder(NodoBB a){
     	String retorno = "";
+    	String valor = "";
         if (a != null){
-        	retorno += obtenerObjetosInOrder(a.getIzq());
-            retorno += a.getObjeto();
-            retorno += obtenerObjetosInOrder(a.getDer());
+        	valor = obtenerObjetosInOrder(a.getIzq());
+        	if ( valor != "" )
+        		retorno += valor + " | "; 
+            
+        	retorno += a.getObjeto();
+             
+            valor = obtenerObjetosInOrder(a.getDer());
+            if ( valor != "" )
+        		retorno += " | " + valor;
         }
         return retorno;
     }
@@ -217,7 +224,7 @@ public class ArbolBB{
     		return true;
     	} else {
     		NodoBB n = insertarSinRepetir(x,o,this.raiz);
-    		if (n.getValor() == 0)
+    		if (n.getObjeto() == null)
     			return false;
     		return true;	
     	}        
@@ -262,14 +269,14 @@ public class ArbolBB{
     	else {
     		if (raiz.getValor() > valor) {
     			n = insertarSinRepetir(valor,o,a.getIzq());
-    			if (n != null){
+    			if (n.getObjeto() != null){
     				a.setIzq(n);
     				return a;
     			}
     			;
     		} else if(raiz.getValor() < valor) {
     			n = insertarSinRepetir(valor,o,a.getDer());
-    			if (n != null){
+    			if (n.getObjeto() != null){
     				a.setDer(n);
     				return a;
     			}
