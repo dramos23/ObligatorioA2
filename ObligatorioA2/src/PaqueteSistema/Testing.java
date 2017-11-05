@@ -45,7 +45,7 @@ public class Testing {
 		
 		//assertEquals(Retorno.Resultado.ERROR_1, s.eliminarTramo(-34.211054,-56.2192116,-34.235199,-56.2185438).resultado);
 		
-		assertEquals(Retorno.Resultado.OK, s.mapaEstado());
+		assertEquals(Retorno.Resultado.OK, s.mapaEstado().resultado);
 		
 		assertEquals(Retorno.Resultado.OK, s.listadoProductores().resultado);
 		

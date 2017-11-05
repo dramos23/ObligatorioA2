@@ -215,12 +215,7 @@ public class GrafoLista {
 		return matriz;
 	}
 	
-	private Object tipoObjeto(Object v) {
-		
-		return null;
-	}
-	
-	
+
 //	for(int j = 0; j < vertices.length; j++){
 //		if (this.vertices[j] != null) {
 //			Arista a = new Arista(j);

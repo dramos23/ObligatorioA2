@@ -206,6 +206,7 @@ public class Sistema implements ISistema {
 		String rojo = "";
 		String amarillo = "";
 		String verde = "";
+		String trayecto = "";
 		Retorno ret = new Retorno();
 		Punto[][] matrizPuntos = mapa.ObtenerPuntoMasAdyacentes();
 		
@@ -213,16 +214,17 @@ public class Sistema implements ISistema {
 			//for(int j = 0; j < matrizPuntos.length; i++){
 				boolean salidaRapida = false;
 				Punto tipo = matrizPuntos[i][0];
+				trayecto += "&path=color:0xff0000ff|weight:2" + Punto.listCoordsToStr(matrizPuntos, i);
 				if (tipo != null) {
 					switch(tipo.getTipoPunto().toString()){
 					case "CIUDAD":
-						rojo += "&markers=color:red%7Clabel:S%7C" + matrizPuntos[i][0].coordsToStr();
+						rojo += "&markers=color:red%7C" + matrizPuntos[i][0].coordsToStr();
 						break;
 					case "PLANTACIÓN":
-						amarillo += "&markers=color:yellow%7Clabel:S%7C" + matrizPuntos[i][0].coordsToStr();;
+						amarillo += "&markers=color:yellow%7C" + matrizPuntos[i][0].coordsToStr();;
 						break;
 					case "SILO":
-						verde += "&markers=color:green%7Clabel:S%7C" + matrizPuntos[i][0].coordsToStr();;
+						verde += "&markers=color:green%7C" + matrizPuntos[i][0].coordsToStr();;
 						break;
 					}
 						
@@ -231,9 +233,9 @@ public class Sistema implements ISistema {
 				}
 		}
 		
-		url += rojo + amarillo + verde + "&key=AIzaSyDuTm6HHsuZQBmCte-uLBf0XxMCfxvjuwE";
+		url += rojo + amarillo + verde + trayecto + "&key=AIzaSyDuTm6HHsuZQBmCte-uLBf0XxMCfxvjuwE";
 		Navegador.openURL(url);
-		ret.resultado = Resultado.NO_IMPLEMENTADA;
+		ret.resultado = Resultado.OK;
 		
 		return ret;
 	}
