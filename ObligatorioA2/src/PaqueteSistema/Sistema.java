@@ -229,7 +229,6 @@ public class Sistema implements ISistema {
 				} else {
 					break;
 				}
-			//}
 		}
 		
 		url += rojo + amarillo + verde + "&key=AIzaSyDuTm6HHsuZQBmCte-uLBf0XxMCfxvjuwE";
