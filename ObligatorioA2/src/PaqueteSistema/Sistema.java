@@ -201,10 +201,38 @@ public class Sistema implements ISistema {
 
 	@Override
 	public Retorno mapaEstado() {
+		
+		String url = "https://maps.googleapis.com/maps/api/staticmap?zoom=13&size=1920x1080&maptype=roadmap";
+		String rojo = "";
+		String amarillo = "";
+		String verde = "";
+		Retorno ret = new Retorno();
 		Punto[][] matrizPuntos = mapa.ObtenerPuntoMasAdyacentes();
 		
-		Retorno ret = new Retorno();
-		String url = "www.google.com.uy";
+		for(int i = 0; i < matrizPuntos.length; i++){
+			//for(int j = 0; j < matrizPuntos.length; i++){
+				boolean salidaRapida = false;
+				Punto tipo = matrizPuntos[i][0];
+				if (tipo != null) {
+					switch(tipo.getTipoPunto().toString()){
+					case "CIUDAD":
+						rojo += "&markers=color:red%7Clabel:S%7C" + matrizPuntos[i][0].coordsToStr();
+						break;
+					case "PLANTACIÓN":
+						amarillo += "&markers=color:yellow%7Clabel:S%7C" + matrizPuntos[i][0].coordsToStr();;
+						break;
+					case "SILO":
+						verde += "&markers=color:green%7Clabel:S%7C" + matrizPuntos[i][0].coordsToStr();;
+						break;
+					}
+						
+				} else {
+					break;
+				}
+			//}
+		}
+		
+		url += rojo + amarillo + verde + "&key=AIzaSyDuTm6HHsuZQBmCte-uLBf0XxMCfxvjuwE";
 		Navegador.openURL(url);
 		ret.resultado = Resultado.NO_IMPLEMENTADA;
 		

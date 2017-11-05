@@ -57,5 +57,9 @@ public abstract class Punto{
 		}
 	}
 	
+	public String coordsToStr() {
+		return this.getCoordX() + "," + this.getCoordY();
+	}
+	
 	
 }

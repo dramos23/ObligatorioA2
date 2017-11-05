@@ -196,15 +196,16 @@ public class GrafoLista {
 		for(int i = 0; i < vertices.length; i++){
 			if (this.vertices[i] != null) {
 				int y = 0;
+				//tipoObjeto(this.vertices[i]);
 				Punto p = (Punto)this.vertices[i];
 				matriz[x][y] = p;
 				for(int j = 0; j < vertices.length; j++){
 					if (this.vertices[j] != null) {
 						Arista a = new Arista(j);
 						if (this.listaAdyacencia[i].existe(a)) {
+							y++;
 							p = (Punto)this.vertices[j];
 							matriz[x][y] = p;
-							y++;
 						};
 					} 
 				}
@@ -212,6 +213,11 @@ public class GrafoLista {
 			}	
 		}
 		return matriz;
+	}
+	
+	private Object tipoObjeto(Object v) {
+		
+		return null;
 	}
 	
 	
