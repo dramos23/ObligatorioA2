@@ -190,31 +190,31 @@ public class GrafoLista {
 	}
 	
 
-	public Punto[][]  ObtenerPuntoMasAdyacentes() {
-		Punto[][] matriz = new Punto[hash.getTamanio()][hash.getTamanio()];
-		int x = 0;
-		for(int i = 0; i < vertices.length; i++){
-			if (this.vertices[i] != null) {
-				int y = 0;
-				//tipoObjeto(this.vertices[i]);
-				Punto p = (Punto)this.vertices[i];
-				matriz[x][y] = p;
-				for(int j = 0; j < vertices.length; j++){
-					if (this.vertices[j] != null) {
-						Arista a = new Arista(j);
-						if (this.listaAdyacencia[i].existe(a)) {
-							y++;
-							p = (Punto)this.vertices[j];
-							matriz[x][y] = p;
-						};
-					} 
-				}
-				x++;
-			}	
-		}
-		return matriz;
-	}
-	
+//	public Punto[][]  ObtenerPuntoMasAdyacentes() {
+//		Punto[][] matriz = new Punto[hash.getTamanio()][hash.getTamanio()];
+//		int x = 0;
+//		for(int i = 0; i < vertices.length; i++){
+//			if (this.vertices[i] != null) {
+//				int y = 0;
+//				//tipoObjeto(this.vertices[i]);
+//				Punto p = (Punto)this.vertices[i];
+//				matriz[x][y] = p;
+//				for(int j = 0; j < vertices.length; j++){
+//					if (this.vertices[j] != null) {
+//						Arista a = new Arista(j);
+//						if (this.listaAdyacencia[i].existe(a)) {
+//							y++;
+//							p = (Punto)this.vertices[j];
+//							matriz[x][y] = p;
+//						};
+//					} 
+//				}
+//				x++;
+//			}	
+//		}
+//		return matriz;
+//	}
+//	
 
 //	for(int j = 0; j < vertices.length; j++){
 //		if (this.vertices[j] != null) {
@@ -233,5 +233,46 @@ public class GrafoLista {
 //			p = (Punto)this.vertices[b];
 //		}
 //	}
-	
+	public String obtenerUrlEstado() {
+		String url = "";
+		String rojo = "";
+		String amarillo = "";
+		String verde = "";
+		String trayecto = "";
+		if(size != 0) {
+			url = "https://maps.googleapis.com/maps/api/staticmap?zoom=13&size=1920x1080&maptype=roadmap";
+			for(int i = 0; i < vertices.length; i++) {
+				if(vertices[i] != null) {
+					String coordenadasOrigen = vertices[i].coordsToStr();
+					String marker = "&markers=color:";
+					String label = "%7Clabel:";
+					switch(vertices[i].getTipoPunto().toString()) {
+					case "CIUDAD":
+						rojo += marker + "red" + label + "C%7C" + coordenadasOrigen;
+						break;
+					case "PLANTACIÓN":
+						amarillo += marker + "yellow" + label + "P%7C" + coordenadasOrigen;
+						break;
+					case "SILO":
+						verde += marker + "green" + label + "S%7C" + coordenadasOrigen;
+						break;
+					}
+					
+					
+					if(!listaAdyacencia[i].esVacia()) {
+						NodoLista nodoArista = listaAdyacencia[i].getInicio();
+						while(nodoArista != null) {
+							Arista a = (Arista)nodoArista.getDato();
+							int indiceDestino = a.getDestino();
+							String coordenadasDestino = vertices[indiceDestino].coordsToStr();
+							trayecto += "&path=color:0xff0000ff|weight:2|" + coordenadasOrigen + "|" + coordenadasDestino;
+							nodoArista = nodoArista.getSig();
+						}
+					}
+				}
+			}
+		}
+		url += rojo + amarillo + verde + trayecto + "&key=AIzaSyDuTm6HHsuZQBmCte-uLBf0XxMCfxvjuwE";
+		return url;
+	}
 }

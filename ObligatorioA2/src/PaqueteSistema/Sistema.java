@@ -199,46 +199,57 @@ public class Sistema implements ISistema {
 		return ret;
 	}
 
+//	@Override
+//	public Retorno mapaEstado() {
+//		
+//		String url = "https://maps.googleapis.com/maps/api/staticmap?zoom=13&size=1920x1080&maptype=roadmap";
+//		String rojo = "";
+//		String amarillo = "";
+//		String verde = "";
+//		String trayecto = "";
+//		Retorno ret = new Retorno();
+//		Punto[][] matrizPuntos = mapa.ObtenerPuntoMasAdyacentes();
+//		
+//		for(int i = 0; i < matrizPuntos.length; i++){
+//			//for(int j = 0; j < matrizPuntos.length; i++){
+//				boolean salidaRapida = false;
+//				Punto tipo = matrizPuntos[i][0];
+//				trayecto += "&path=color:0xff0000ff|weight:2" + Punto.listCoordsToStr(matrizPuntos, i);
+//				if (tipo != null) {
+//					switch(tipo.getTipoPunto().toString()){
+//					case "CIUDAD":
+//						rojo += "&markers=color:red%7C" + matrizPuntos[i][0].coordsToStr();
+//						break;
+//					case "PLANTACIÓN":
+//						amarillo += "&markers=color:yellow%7C" + matrizPuntos[i][0].coordsToStr();
+//						break;
+//					case "SILO":
+//						verde += "&markers=color:green%7C" + matrizPuntos[i][0].coordsToStr();
+//						break;
+//					}
+//						
+//				} else {
+//					break;
+//				}
+//		}
+//		
+//		url += rojo + amarillo + verde + trayecto + "&key=AIzaSyDuTm6HHsuZQBmCte-uLBf0XxMCfxvjuwE";
+//		Navegador.openURL(url);
+//		ret.resultado = Resultado.OK;
+//		
+//		return ret;
+//	}
 	@Override
 	public Retorno mapaEstado() {
-		
-		String url = "https://maps.googleapis.com/maps/api/staticmap?zoom=13&size=1920x1080&maptype=roadmap";
-		String rojo = "";
-		String amarillo = "";
-		String verde = "";
-		String trayecto = "";
 		Retorno ret = new Retorno();
-		Punto[][] matrizPuntos = mapa.ObtenerPuntoMasAdyacentes();
-		
-		for(int i = 0; i < matrizPuntos.length; i++){
-			//for(int j = 0; j < matrizPuntos.length; i++){
-				boolean salidaRapida = false;
-				Punto tipo = matrizPuntos[i][0];
-				trayecto += "&path=color:0xff0000ff|weight:2" + Punto.listCoordsToStr(matrizPuntos, i);
-				if (tipo != null) {
-					switch(tipo.getTipoPunto().toString()){
-					case "CIUDAD":
-						rojo += "&markers=color:red%7C" + matrizPuntos[i][0].coordsToStr();
-						break;
-					case "PLANTACIÓN":
-						amarillo += "&markers=color:yellow%7C" + matrizPuntos[i][0].coordsToStr();;
-						break;
-					case "SILO":
-						verde += "&markers=color:green%7C" + matrizPuntos[i][0].coordsToStr();;
-						break;
-					}
-						
-				} else {
-					break;
-				}
+		String url = mapa.obtenerUrlEstado();
+		if(url != "") {
+			Navegador.openURL(url);
 		}
-		
-		url += rojo + amarillo + verde + trayecto + "&key=AIzaSyDuTm6HHsuZQBmCte-uLBf0XxMCfxvjuwE";
-		Navegador.openURL(url);
 		ret.resultado = Resultado.OK;
-		
 		return ret;
 	}
+	
 
 	@Override
 	public Retorno rutaASiloMasCercano(Double coordX, Double coordY) {

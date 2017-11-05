@@ -18,4 +18,6 @@ public interface ILista{
 	
 	public void insertarUltimo(Object dato);
 	
+	public boolean esVacia();
+	
 }

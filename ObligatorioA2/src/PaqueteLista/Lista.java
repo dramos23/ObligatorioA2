@@ -115,4 +115,9 @@ public class Lista implements ILista{
 			inicio = new NodoLista(dato, inicio);
 		}		
 	}
+	
+	@Override
+	public boolean esVacia() {
+		return inicio == null;
+	}
 }
