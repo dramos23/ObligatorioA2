@@ -44,7 +44,7 @@ public class Testing {
 		//Casos de error plantacion
 		assertEquals(Retorno.Resultado.ERROR_2, s.registrarPlantacion("Plantacion_1",-34.176316,-56.175714,"4.798.128-7",0).resultado);
 		assertEquals(Retorno.Resultado.ERROR_3, s.registrarPlantacion("Plantacion_2",-34.176316,-56.175714,"4.317.139-7",3000).resultado);
-		
+																					 
 		//Registro 1 silo
 		assertEquals(Retorno.Resultado.OK, s.registrarSilo("Silo_1",-34.102376,-56.122201,30000).resultado);
 		assertEquals(Retorno.Resultado.OK, s.registrarSilo("Silo_2",-34.177174,-56.217845,21000).resultado);
@@ -74,7 +74,7 @@ public class Testing {
 		//assertEquals(Retorno.Resultado.ERROR_1, s.eliminarTramo(-34.211054,-56.2192116,-34.235199,-56.2185438).resultado);
 		
 		//Ruta al silo más cercano
-//		assertEquals(Retorno.Resultado.OK, s.rutaASiloMasCercano(-34.176316,-56.175714).resultado);
+		//assertEquals(Retorno.Resultado.OK, s.rutaASiloMasCercano(-34.176316,-56.175714).resultado);
 		
 		assertEquals(Retorno.Resultado.OK, s.mapaEstado().resultado);
 		

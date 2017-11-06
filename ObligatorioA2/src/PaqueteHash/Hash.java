@@ -8,7 +8,7 @@ public class Hash {
 
 	private int tamanio;
 	private String[] estados; //O - ocupado, V - vacío, E - eliminado
-	private int[] claves;
+	private String[] claves;
 	
 	public int getTamanio() {
 		return tamanio;
@@ -21,7 +21,7 @@ public class Hash {
 	public Hash (int tam) {
 		this.tamanio = numeroPrimoMayorA(tam);
 		this.estados = new String[tamanio];
-		this.claves = new int[tamanio];
+		this.claves = new String[tamanio];
 		Arrays.fill(this.estados, "V");
 	}
 	
@@ -34,19 +34,21 @@ public class Hash {
 		Punto p = (Punto)o;
 		int indice = Existe(p.getCoordX(),p.getCoordY());
 		
+		String coordenadas = p.getCoordX()+","+p.getCoordY();
+		
 		if(indice == -1){
 			
 			int n = this.getClave(p.getCoordX(),p.getCoordY());
 			
 			indice = n % this.tamanio;
-			int R = numeroPrimoMenorA(this.tamanio-1); 
+			//int R = numeroPrimoMenorA(this.tamanio-1); 
 			int j = 0;
 			
 			while(this.estados[indice].equals("O") && j < this.tamanio) {
-				indice = (indice + j*( R - n % R )) % this.tamanio; 
+				indice = (indice + 1) % tamanio;
 				j++;		
 			}
-			this.claves[indice] = n;
+			this.claves[indice] = coordenadas;
 			this.estados[indice] = "O";
 			return indice;
 		}
@@ -58,7 +60,7 @@ public class Hash {
 	public int Borrar(Double x, Double y){
 		int indice = Existe(x,y);
 		if(indice != -1){
-			this.claves[indice] = 0; //reinicializo en 0
+			this.claves[indice] = null; //reinicializo en 0
 			this.estados[indice] = "E";
 		}
 		return indice;
@@ -66,38 +68,39 @@ public class Hash {
 	
 	//Retorna -1 si no existe.
 	public int Existe(Double coordX,Double coordY) {
-		int R = numeroPrimoMenorA(this.tamanio-1);
+		String coordenadas = coordX+","+coordY;
+		//int R = numeroPrimoMenorA(this.tamanio-1);
 		int n = this.getClave(coordX,coordY);
 		int indice = n % this.tamanio;
 		int j = 0;
-		while ( j < this.tamanio ) {
-			if (this.estados[indice].equals("O") && this.claves[indice] == n) {
+		while ( j < this.tamanio && !this.estados[indice].equals("V")) {
+			if (this.estados[indice].equals("O") && this.claves[indice].equals(coordenadas)) {
 				return indice;
-			}	
-			indice = (indice + j*( R - n % R )) % this.tamanio;
+			}
+			indice = (indice + 1) % tamanio;
 			j++;
 		}
 		return -1;
 	}
 	
-	private int numeroPrimoMenorA(int n) {
-		int contador = 1;
-		int ent = 0;
-		for (int i = 0; i < n; i++) {
-			while (contador != n-i){
-				if (n-i % contador == 0) {
-					ent++;					
-				}
-				contador++;
-			}
-			if ( ent == 2 ){
-				return n-i;
-			}
-			contador = 1;
-			ent = 0;
-		}
-		return n;
-	}
+//	private int numeroPrimoMenorA(int n) {
+//		int contador = 1;
+//		int ent = 0;
+//		for (int i = 0; i < n; i++) {
+//			while (contador != n-i){
+//				if (n-i % contador == 0) {
+//					ent++;					
+//				}
+//				contador++;
+//			}
+//			if ( ent == 2 ){
+//				return n-i;
+//			}
+//			contador = 1;
+//			ent = 0;
+//		}
+//		return n;
+//	}
 	
 	private int numeroPrimoMayorA(int n) {
 		for (int i = n; i <= Integer.MAX_VALUE; i++ ){
@@ -109,35 +112,21 @@ public class Hash {
 	}
 	
 	private boolean esPrimo(int numero){
-		  int contador = 2;
-		  boolean primo=true;
-		  while ((primo) && (contador!=numero)){
-		    if (numero % contador == 0)
-		      primo = false;
-		    contador++;
-		  }
-		  return primo;
+		int contador = 2;
+		boolean primo = true;
+		while ((primo) && (contador!=numero)){
+			if (numero % contador == 0)
+				primo = false;
+			contador++;
 		}
-	
-//	public int getClave(Double coordX, Double coordY){
-//		String clave = coordX*2+","+coordY;
-//		int disp = 0;
-//		for(int i = 0; i<clave.length();i++)
-//			disp+=(int)clave.charAt(i);
-//		return disp;
-//	}
+		return primo;
+	}
 	
 	public int getClave(Double coordX, Double coordY){
-		int clave = coordToInt_Clave(coordX.toString()) + coordToInt_Clave(coordY.toString());
-		return clave;
+		String clave = coordX+","+coordY;
+		int disp = 0;
+		for(int i = 0; i<clave.length();i++)
+			disp+=(int)clave.charAt(i);
+		return disp;
 	}
-	
-	private int coordToInt_Clave(String str) {
-		int valor = 0;
-		for(int i = 0; i< str.length();i++) {
-			valor += (int)str.charAt(i)*Math.pow(2, i);
-		}
-		return valor;
-	}
-	
 }

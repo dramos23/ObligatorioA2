@@ -116,12 +116,11 @@ public class GrafoLista {
 	}
 	
 	public boolean sonAdyacentes(int a, int b) {
-		NodoLista nodoArista = listaAdyacencia[b].getInicio();
-		if (nodoArista != null) {
-			return listaAdyacencia[a].existe(nodoArista.getDato());
-		}else {
-			return false;
+		if(!listaAdyacencia[a].esVacia()){
+			Arista arista = new Arista(b);
+			return listaAdyacencia[a].existe(arista);
 		}
+		return false;
 	}
 	
 	//Retorna -1 si no está. 
@@ -155,9 +154,9 @@ public class GrafoLista {
 //			if(sonAdyacentes(verticeInicial,i)){
 //				//obtengo peso de la arista.
 //				//costos[i] = obtenerArista(verticeInicial,i).getPeso();
-//				NodoLista nodoArista = listaAdyacencia[i].getInicio(); //new line
-//				Arista arista = (Arista)nodoArista.getDato(); // new line
-//				costos[i] = arista.getPeso(); // new line
+//				NodoLista nodoArista = listaAdyacencia[i].getInicio();
+//				Arista arista = (Arista)nodoArista.getDato();
+//				costos[i] = arista.getPeso();
 //				predecesores[i] = verticeInicial;
 //			} else {
 //				costos[i] = Integer.MAX_VALUE;
@@ -178,7 +177,6 @@ public class GrafoLista {
 //				n = n.getSig();
 //			}
 //		}
-//		costos.notify();
 //	}
 	
 	public void caminoMinimo(int verticeInicial) {
@@ -244,50 +242,6 @@ public class GrafoLista {
 		return ((Arista)listaAdyacencia[origen].recuperar(destino));
 	}
 	
-
-//	public Punto[][]  ObtenerPuntoMasAdyacentes() {
-//		Punto[][] matriz = new Punto[hash.getTamanio()][hash.getTamanio()];
-//		int x = 0;
-//		for(int i = 0; i < vertices.length; i++){
-//			if (this.vertices[i] != null) {
-//				int y = 0;
-//				//tipoObjeto(this.vertices[i]);
-//				Punto p = (Punto)this.vertices[i];
-//				matriz[x][y] = p;
-//				for(int j = 0; j < vertices.length; j++){
-//					if (this.vertices[j] != null) {
-//						Arista a = new Arista(j);
-//						if (this.listaAdyacencia[i].existe(a)) {
-//							y++;
-//							p = (Punto)this.vertices[j];
-//							matriz[x][y] = p;
-//						};
-//					} 
-//				}
-//				x++;
-//			}	
-//		}
-//		return matriz;
-//	}
-//	
-
-//	for(int j = 0; j < vertices.length; j++){
-//		if (this.vertices[j] != null) {
-//			Arista a = new Arista(j);
-//			if (this.listaAdyacencia[i].existe(a)) {
-//				p = (Punto)this.vertices[j];
-//				puntos.insertar(p);
-//			};
-//		} 
-//	}
-	
-//	for(int j = 0; j < vertices.length; j++){
-//		Arista a = obtenerArista(i, j);
-//		if (a != null) {
-//			int b = a.getDestino();
-//			p = (Punto)this.vertices[b];
-//		}
-//	}
 	public String obtenerUrlEstado() {
 		String url = "";
 		String rojo = "";

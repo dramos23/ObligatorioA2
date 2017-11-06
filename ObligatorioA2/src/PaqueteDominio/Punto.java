@@ -60,15 +60,4 @@ public abstract class Punto{
 	public String coordsToStr() {
 		return this.getCoordX() + "," + this.getCoordY();
 	}
-	
-//	public static String listCoordsToStr(Punto[][] m, int i) {
-//		String resultado = "";
-//		for(int j = 0; j < m.length; j++){
-//			if ( m[i][j] != null )
-//					resultado += "|" + m[i][j].coordsToStr();
-//			else
-//				break;
-//		}
-//		return resultado;
-//	}
 }
