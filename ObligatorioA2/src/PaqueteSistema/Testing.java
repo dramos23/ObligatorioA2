@@ -74,11 +74,13 @@ public class Testing {
 		//assertEquals(Retorno.Resultado.ERROR_1, s.eliminarTramo(-34.211054,-56.2192116,-34.235199,-56.2185438).resultado);
 		
 		//Ruta al silo más cercano
-		//assertEquals(Retorno.Resultado.OK, s.rutaASiloMasCercano(-34.176316,-56.175714).resultado);
+		assertEquals(Retorno.Resultado.OK, s.rutaASiloMasCercano(-34.176316,-56.175714).resultado);
 		
 		assertEquals(Retorno.Resultado.OK, s.mapaEstado().resultado);
 		
 		assertEquals(Retorno.Resultado.OK, s.listadoProductores().resultado);
+		
+		assertEquals(Retorno.Resultado.OK, s.listadoDeSilos().resultado);
 		
 		
 	}

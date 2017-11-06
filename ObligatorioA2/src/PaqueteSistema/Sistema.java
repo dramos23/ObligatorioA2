@@ -1,14 +1,10 @@
 package PaqueteSistema;
 
-import java.util.List;
-
 import PaqueteArbolBB.ArbolBB;
 import PaqueteDominio.Ciudad;
 import PaqueteDominio.Plantacion;
-import PaqueteDominio.Punto;
 import PaqueteDominio.Silo;
 import PaqueteGrafo.GrafoLista;
-import PaqueteLista.Lista;
 import PaqueteSistema.Retorno.Resultado;
 
 public class Sistema implements ISistema {
@@ -99,7 +95,7 @@ public class Sistema implements ISistema {
 			ret.resultado = Resultado.ERROR_2;
 		else {
 			Plantacion p = new Plantacion(nombre,coordX,coordY,cedula_productor,capacidad);
-			int indice = mapa.existeVertice(p);
+			int indice = mapa.existePunto(coordX,coordY);
 			if(indice != -1){
 				ret.resultado = Resultado.ERROR_3;
 			} else if(!productores.existeProductor(cedula_productor)){
@@ -191,54 +187,13 @@ public class Sistema implements ISistema {
 	public Retorno eliminarPunto(Double coordX, Double coordY) {
 		Retorno ret = new Retorno();
 		
-		if(mapa.eliminarVertice(coordX, coordY)){
+		if(mapa.eliminarPunto(coordX, coordY)){
 			ret.resultado = Resultado.OK;
 		} else {
 			ret.resultado = Resultado.ERROR_1;
 		}		
 		return ret;
 	}
-
-//	@Override
-//	public Retorno mapaEstado() {
-//		
-//		String url = "https://maps.googleapis.com/maps/api/staticmap?zoom=13&size=1920x1080&maptype=roadmap";
-//		String rojo = "";
-//		String amarillo = "";
-//		String verde = "";
-//		String trayecto = "";
-//		Retorno ret = new Retorno();
-//		Punto[][] matrizPuntos = mapa.ObtenerPuntoMasAdyacentes();
-//		
-//		for(int i = 0; i < matrizPuntos.length; i++){
-//			//for(int j = 0; j < matrizPuntos.length; i++){
-//				boolean salidaRapida = false;
-//				Punto tipo = matrizPuntos[i][0];
-//				trayecto += "&path=color:0xff0000ff|weight:2" + Punto.listCoordsToStr(matrizPuntos, i);
-//				if (tipo != null) {
-//					switch(tipo.getTipoPunto().toString()){
-//					case "CIUDAD":
-//						rojo += "&markers=color:red%7C" + matrizPuntos[i][0].coordsToStr();
-//						break;
-//					case "PLANTACIÓN":
-//						amarillo += "&markers=color:yellow%7C" + matrizPuntos[i][0].coordsToStr();
-//						break;
-//					case "SILO":
-//						verde += "&markers=color:green%7C" + matrizPuntos[i][0].coordsToStr();
-//						break;
-//					}
-//						
-//				} else {
-//					break;
-//				}
-//		}
-//		
-//		url += rojo + amarillo + verde + trayecto + "&key=AIzaSyDuTm6HHsuZQBmCte-uLBf0XxMCfxvjuwE";
-//		Navegador.openURL(url);
-//		ret.resultado = Resultado.OK;
-//		
-//		return ret;
-//	}
 	@Override
 	public Retorno mapaEstado() {
 		Retorno ret = new Retorno();
@@ -254,9 +209,15 @@ public class Sistema implements ISistema {
 	@Override
 	public Retorno rutaASiloMasCercano(Double coordX, Double coordY) {
 		Retorno ret = new Retorno();
-		String str = mapa.rSilomasCercano(coordX,coordY);
-		ret.valorString = str;
-		ret.resultado = Resultado.NO_IMPLEMENTADA;
+		String str = mapa.rutaSiloMasCercano(coordX,coordY);
+		if(str == "1"){
+			ret.resultado = Resultado.ERROR_1;
+		} else if(str == "2"){
+			ret.resultado = Resultado.ERROR_2;
+		} else {
+			ret.valorString = str;
+			ret.resultado = Resultado.OK;			
+		}
 		return ret;
 	}
 
@@ -264,40 +225,29 @@ public class Sistema implements ISistema {
 	public Retorno listadoDePlantacionesEnCiudad(Double coordX, Double coordY) {
 		Retorno ret = new Retorno();
 		
-//		ArrayList<Plantacion> plantacionesEnCiudad = mapa.obtenerPlantacionesEnCiudad(coordX,coordY);
-//		
-//		if(plantacionesEnCiudad == null){
-//			ret.resultado = Resultado.ERROR_1;
-//		} else {
-//			ret.valorString = "Listado de plantaciones en Ciudad "+ coordX + ", "+ coordY;
-//			for(Plantacion p: plantacionesEnCiudad){
-//				ret.valorString += p;
-//			}
-//			ret.resultado = Resultado.OK;
-//		}		
-//		return ret;
-		
+		if(mapa.existePunto(coordX,coordY) == -1){
+			ret.resultado = Resultado.ERROR_1;
+		} else {
+			//ret.resultado = Resultado.OK;
+			ret.valorString = mapa.listadoPlantacionesEnCiudad(coordX,coordY);
+		}		
 		ret.resultado = Resultado.NO_IMPLEMENTADA;
 		return ret;
 	}
 
-	//Preguntar como se calcula o de donde se obtiene la "capacidad remanente"
 	@Override
 	public Retorno listadoDeSilos() {
 		Retorno ret = new Retorno();
-		
-		ret.resultado = Resultado.NO_IMPLEMENTADA;
-		
+		ret.valorString = mapa.listadoDeSilos();
+		ret.resultado = Resultado.OK;
 		return ret;
 	}
 
 	@Override
 	public Retorno listadoProductores() {
 		Retorno ret = new Retorno();
-		
 		ret.valorString = productores.obtenerObjetosInOrder();
 		ret.resultado = Resultado.OK;
-		
 		return ret;
 	}
 

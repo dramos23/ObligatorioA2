@@ -19,13 +19,18 @@ public class Silo extends Punto{
 		this.capacidad = capacidad;
 	}
 	
-	public void setCapacidadRemanente(int capacidadRemanente){
-		this.capacidadRemanente = capacidadRemanente;
+	public boolean disminuirCapacidadRemanente(int capacidadPlantacion) {
+		if(capacidadRemanente >= capacidadPlantacion) {
+			this.capacidadRemanente -= capacidadPlantacion;
+			return true;
+		}
+		return false;
 	}
 
 	public Silo(String nombre, Double coordX, Double coordY, int capacidad) {
 		super(coordX, coordY, nombre);
 		this.capacidad = capacidad;
+		this.capacidadRemanente = capacidad;
 		this.setTipoPunto(Sistema.TipoPunto.SILO);
 	}
 

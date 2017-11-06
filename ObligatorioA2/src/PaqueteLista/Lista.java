@@ -65,14 +65,17 @@ public class Lista implements ILista{
 	public Object recuperar(Object dato) {
 		if(inicio == null)
 			return null;
-		NodoLista aux = inicio;
-		while(aux.getSig()!=null) {
-			if(aux.getDato().equals(dato)){
-				return aux.getDato();
+		if(inicio.getDato().equals(dato))
+			return inicio.getDato();
+		else {
+			NodoLista aux = inicio;
+			while(aux.getSig() != null) {
+				if(aux.getDato().equals(dato))
+					return aux.getDato();
+				aux = aux.getSig();
 			}
-			aux = aux.getSig();
+			return null;
 		}
-		return null;
 	}
 
 	@Override
