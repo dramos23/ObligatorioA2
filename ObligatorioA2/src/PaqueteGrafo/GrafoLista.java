@@ -30,6 +30,11 @@ public class GrafoLista {
 	//		Si retorna 2 es que ya existe un punto en esas coordenadas
 	//		Si retorna 0 es que pudo insertarse el punto
 
+	
+	public int getCantNodos() {
+		return cantNodos;
+	}
+	
 	public int agregarVertice(Object v) {
 		//this.nodosUsados[v]=true;
 		if(!sePuedeInsertarPunto()){
@@ -128,6 +133,13 @@ public class GrafoLista {
 	//Retorna -1 si no está. 
 	public int existePunto(Double coordX, Double coordY) {
 		return hash.Existe(coordX, coordY);
+	}
+	
+	public int existeCiudad(Double coordX, Double coordY) {
+		int indice = hash.Existe(coordX, coordY);
+		if(indice != -1 && !vertices[indice].getTipoPunto().toString().equals("CIUDAD"))
+			indice = -1;
+		return indice;
 	}
 	
 	public boolean esVacio() {
@@ -295,19 +307,66 @@ public class GrafoLista {
 
 	private String rutaPlantacionSilo(int indiceSilo, int[] predecesores) {
 		Punto p = vertices[indiceSilo];
-		String retorno = p.getCoordX()+","+p.getCoordY();
+		String retorno = "|" + p.getCoordX() + ";" + p.getCoordY();
 		int indiceActual = indiceSilo;
 		while(predecesores[indiceActual] != -1){
 			indiceActual = predecesores[indiceActual];
 			p = vertices[indiceActual];
-			retorno += "|" + p.getCoordX()+","+p.getCoordY();
+			retorno = "|" + p.getCoordX() + ";" + p.getCoordY() + retorno;
 		}
+		retorno = retorno.substring(1);
 		return retorno;
 	}
 
-	public String listadoPlantacionesEnCiudad(Double coordX, Double coordY) {
-		// TODO Auto-generated method stub
-		return null;
+	public int[] costosMinimos(int verticeInicial) {
+			boolean[] visitados = new boolean[hash.getTamanio()]; //cantNodos
+			int[] costos = new int[hash.getTamanio()]; //cantNodos
+			int[] predecesores = new int[hash.getTamanio()]; //cantNodos
+			visitados[verticeInicial] = true;
+			predecesores[verticeInicial] = -1;
+			
+			//para todos los vértices del gráfo
+			for(int i = 0; i < hash.getTamanio(); i++) { 
+				//i sea adyancente a verticeInicial
+				if(sonAdyacentes(verticeInicial,i)){
+					//obtengo peso de la arista.
+					costos[i] = obtenerArista(verticeInicial,i).getPeso();
+					predecesores[i] = verticeInicial;
+				} else {
+					costos[i] = Integer.MAX_VALUE;
+				}
+			}
+			
+			for(int j = 0; j < hash.getTamanio(); j++) {
+				int w = buscarVerticeCostoMinimoSinVisitar(costos,visitados);
+				if(w == -1)
+					break;
+				//siempre voy a encontrar w. no es necesario revisar si encontré o no
+				visitados[w] = true; //en el momento que se marca true es que obtuve el camino minimo desde verticeInicial a w. opcionalmente puedo frenar acá si estaba buscando el camino minimo de verticeInicial a un w.
+				NodoLista n = listaAdyacencia[w].getInicio();
+				while(n != null) {
+					Arista a = (Arista)n.getDato();
+					if(!visitados[a.getDestino()]) {
+						costos[a.getDestino()] = Math.min(costos[a.getDestino()],costos[w] + a.getPeso());
+						predecesores[a.getDestino()] = w;
+					}
+					n = n.getSig();
+				}
+			}
+			return costos;
+		}
+	
+	//PRE: Existe la ciudad en coordX,coordY
+	public String listadoPlantacionesEnCiudad(int indiceCiudad) {
+		String retorno = "";
+		int[] costos = costosMinimos(indiceCiudad);
+		for(int i = 0; i < costos.length; i++) {
+			if(costos[i] <= 20 && vertices[i].getTipoPunto().toString().equals("PLANTACIÓN")) {
+				retorno += "|" + vertices[i].getCoordX() + ";" + vertices[i].getCoordY();
+			}
+		}
+		if(retorno != "") retorno = retorno.substring(1);
+		return retorno;
 	}
 
 	public String listadoDeSilos() {

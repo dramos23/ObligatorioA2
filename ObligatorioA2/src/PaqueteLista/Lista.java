@@ -69,11 +69,11 @@ public class Lista implements ILista{
 			return inicio.getDato();
 		else {
 			NodoLista aux = inicio;
-			while(aux.getSig() != null) {
-				if(aux.getDato().equals(dato))
-					return aux.getDato();
+			while(aux.getSig() != null && !aux.getDato().equals(dato)) {
 				aux = aux.getSig();
 			}
+			if(aux.getDato().equals(dato))
+				return dato;
 			return null;
 		}
 	}

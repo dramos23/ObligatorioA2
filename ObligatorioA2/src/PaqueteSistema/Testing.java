@@ -68,6 +68,8 @@ public class Testing {
 		assertEquals(Retorno.Resultado.OK, s.registrarTramo(-34.192082,-56.339053,-34.203299,-56.399141,4).resultado); //ciudad veinticinco de mayo - silo 3
 		assertEquals(Retorno.Resultado.OK, s.registrarTramo(-34.192082,-56.339053,-34.117518,-56.405298,12).resultado); //ciudad veinticinco de mayo - plantacion 4
 		
+		//assertEquals(Retorno.Resultado.OK, s.eliminarTramo(-34.192082,-56.339053,-34.117518,-56.405298).resultado);
+		
 		//Elimino 1 punto
 		assertEquals(Retorno.Resultado.OK, s.eliminarPunto(-34.145863,-56.277579).resultado);
 		
@@ -82,6 +84,10 @@ public class Testing {
 		
 		assertEquals(Retorno.Resultado.OK, s.listadoDeSilos().resultado);
 		
+		assertEquals(Retorno.Resultado.OK, s.listadoDePlantacionesEnCiudad(-34.237845,-56.218210).resultado);
+		
+		//hay que probar cuando el gráfo o el árbol están vacíos
+		assertEquals(Retorno.Resultado.OK, s.destruirSistema().resultado);
 		
 	}
 

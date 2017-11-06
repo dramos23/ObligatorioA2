@@ -31,9 +31,10 @@ public class Sistema implements ISistema {
 	@Override
 	public Retorno destruirSistema() {
 		Retorno ret = new Retorno();
-		//vaciar arbol productores y grafo mapa, siempre retorna OK.
-		ret.resultado = Resultado.NO_IMPLEMENTADA;
-		
+		int cantPuntos = mapa.getCantNodos();
+		mapa = new GrafoLista(cantPuntos);
+		productores = new ArbolBB();
+		ret.resultado = Resultado.OK;
 		return ret;
 	}
 
@@ -224,14 +225,13 @@ public class Sistema implements ISistema {
 	@Override
 	public Retorno listadoDePlantacionesEnCiudad(Double coordX, Double coordY) {
 		Retorno ret = new Retorno();
-		
-		if(mapa.existePunto(coordX,coordY) == -1){
+		int indiceCiudad = mapa.existeCiudad(coordX, coordY);
+		if(indiceCiudad == -1){
 			ret.resultado = Resultado.ERROR_1;
 		} else {
-			//ret.resultado = Resultado.OK;
-			ret.valorString = mapa.listadoPlantacionesEnCiudad(coordX,coordY);
-		}		
-		ret.resultado = Resultado.NO_IMPLEMENTADA;
+			ret.valorString = mapa.listadoPlantacionesEnCiudad(indiceCiudad);
+			ret.resultado = Resultado.OK;
+		}
 		return ret;
 	}
 
