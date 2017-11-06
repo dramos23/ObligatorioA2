@@ -119,13 +119,25 @@ public class Hash {
 		  return primo;
 		}
 	
+//	public int getClave(Double coordX, Double coordY){
+//		String clave = coordX*2+","+coordY;
+//		int disp = 0;
+//		for(int i = 0; i<clave.length();i++)
+//			disp+=(int)clave.charAt(i);
+//		return disp;
+//	}
+	
 	public int getClave(Double coordX, Double coordY){
-		String clave = coordX*2+","+coordY;
-		int disp = 0;
-		for(int i = 0; i<clave.length();i++)
-			disp+=(int)clave.charAt(i);
-		return disp;
+		int clave = coordToInt_Clave(coordX.toString()) + coordToInt_Clave(coordY.toString());
+		return clave;
 	}
 	
+	private int coordToInt_Clave(String str) {
+		int valor = 0;
+		for(int i = 0; i< str.length();i++) {
+			valor += (int)str.charAt(i)*Math.pow(2, i);
+		}
+		return valor;
+	}
 	
 }

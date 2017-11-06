@@ -115,9 +115,13 @@ public class GrafoLista {
 		return null;
 	}
 	
-	public boolean sonAdyacentes(Object a, Object b) {
-		//return a <= cantNodos && listaAdyacencia[a].existe(new Arista(b));
-		return false;
+	public boolean sonAdyacentes(int a, int b) {
+		NodoLista nodoArista = listaAdyacencia[b].getInicio();
+		if (nodoArista != null) {
+			return listaAdyacencia[a].existe(nodoArista.getDato());
+		}else {
+			return false;
+		}
 	}
 	
 	//Retorna -1 si no está. 
@@ -138,39 +142,90 @@ public class GrafoLista {
 		return size < cantNodos;
 	}
 	
+//	public void caminoMinimo(int verticeInicial) {
+//		boolean[] visitados = new boolean[hash.getTamanio()]; //cantNodos
+//		int[] costos = new int[hash.getTamanio()]; //cantNodos
+//		int[] predecesores = new int[hash.getTamanio()]; //cantNodos
+//		visitados[verticeInicial] = true;
+//		predecesores[verticeInicial] = -1;
+//		
+//		//para todos los vértices del gráfo
+//		for(int i = 0; i < hash.getTamanio(); i++) { 
+//			//i sea adyancente a verticeInicial
+//			if(sonAdyacentes(verticeInicial,i)){
+//				//obtengo peso de la arista.
+//				//costos[i] = obtenerArista(verticeInicial,i).getPeso();
+//				NodoLista nodoArista = listaAdyacencia[i].getInicio(); //new line
+//				Arista arista = (Arista)nodoArista.getDato(); // new line
+//				costos[i] = arista.getPeso(); // new line
+//				predecesores[i] = verticeInicial;
+//			} else {
+//				costos[i] = Integer.MAX_VALUE;
+//			}
+//		}
+//		
+//		for(int j = 0; j < cantNodos; j++) {
+//			int w = buscarVerticeCostoMinimoSinVisitar(costos,visitados);
+//			//siempre voy a encontrar w. no es necesario revisar si encontré o no
+//			visitados[w] = true; //en el momento que se marca true es que obtuve el camino minimo desde verticeInicial a w. opcionalmente puedo frenar acá si estaba buscando el camino minimo de verticeInicial a un w.
+//			NodoLista n = listaAdyacencia[w].getInicio();
+//			while(n != null) {
+//				Arista a = (Arista)n.getDato();
+//				if(!visitados[a.getDestino()]) {
+//					costos[a.getDestino()] = Math.min(costos[a.getDestino()],costos[w] + a.getPeso());
+//					predecesores[a.getDestino()] = w;
+//				}
+//				n = n.getSig();
+//			}
+//		}
+//		costos.notify();
+//	}
+	
 	public void caminoMinimo(int verticeInicial) {
-		boolean[] visitados = new boolean[cantNodos];
-		int[] costos = new int[cantNodos];
-		int[] predecesores = new int[cantNodos];
+		boolean[] visitados = new boolean[hash.getTamanio()]; //cantNodos
+		int[] costos = new int[hash.getTamanio()]; //cantNodos
+		int[] camino = new int[hash.getTamanio()]; //cantNodos
 		visitados[verticeInicial] = true;
-		predecesores[verticeInicial] = -1;
+		camino[verticeInicial] = -1;
 		
 		//para todos los vértices del gráfo
-		for(int i = 0; i < cantNodos; i++) { 
+		for(int i = 0; i < hash.getTamanio(); i++) { 
 			//i sea adyancente a verticeInicial
-			if(sonAdyacentes(verticeInicial,i)){
+			if(sonAdyacentes(verticeInicial,i)){ //problema en la adyacencia me indica que p1 es adyacente de p3, no!!! p1 es adyacente a c1 y c1 a p3
 				//obtengo peso de la arista.
-				costos[i] = obtenerArista(verticeInicial,i).getPeso(); 
-				predecesores[i] = verticeInicial;
+				//costos[i] = obtenerArista(verticeInicial,i).getPeso();
+				NodoLista nodoArista = listaAdyacencia[i].getInicio(); //new line
+				Arista arista = (Arista)nodoArista.getDato(); // new line
+				costos[i] = arista.getPeso(); // new line
+				camino[i] = verticeInicial;
 			} else {
 				costos[i] = Integer.MAX_VALUE;
 			}
 		}
 		
-		for(int j = 0; j < cantNodos; j++) {
+		for(int j = 0; j < hash.getTamanio(); j++) {
 			int w = buscarVerticeCostoMinimoSinVisitar(costos,visitados);
 			//siempre voy a encontrar w. no es necesario revisar si encontré o no
 			visitados[w] = true; //en el momento que se marca true es que obtuve el camino minimo desde verticeInicial a w. opcionalmente puedo frenar acá si estaba buscando el camino minimo de verticeInicial a un w.
 			NodoLista n = listaAdyacencia[w].getInicio();
-			while(n != null) {
+			if (n != null) {
 				Arista a = (Arista)n.getDato();
-				if(!visitados[a.getDestino()]) {
+				Punto p = (Punto)vertices[a.getDestino()];
+				if (p.getTipoPunto() != "SILO") {
+					while(n != null) {
+						if(!visitados[a.getDestino()]) {
+							costos[a.getDestino()] = Math.min(costos[a.getDestino()],costos[w] + a.getPeso());
+							camino[a.getDestino()] = w;
+						}
+						n = n.getSig();
+					}
+				} else {
 					costos[a.getDestino()] = Math.min(costos[a.getDestino()],costos[w] + a.getPeso());
-					predecesores[a.getDestino()] = w;
+					camino[a.getDestino()] = w;
 				}
-				n = n.getSig();
 			}
 		}
+		costos.notify();
 	}
 
 	public int buscarVerticeCostoMinimoSinVisitar(int[] costos, boolean[] visitados) {
@@ -274,5 +329,11 @@ public class GrafoLista {
 		}
 		url += rojo + amarillo + verde + trayecto + "&key=AIzaSyDuTm6HHsuZQBmCte-uLBf0XxMCfxvjuwE";
 		return url;
+	}
+	
+	public String rSilomasCercano(double coordX, double coordY) {
+		int origen = hash.Existe(coordX,coordY);
+		caminoMinimo(origen);
+		return null;
 	}
 }

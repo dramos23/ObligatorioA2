@@ -254,9 +254,9 @@ public class Sistema implements ISistema {
 	@Override
 	public Retorno rutaASiloMasCercano(Double coordX, Double coordY) {
 		Retorno ret = new Retorno();
-		
+		String str = mapa.rSilomasCercano(coordX,coordY);
+		ret.valorString = str;
 		ret.resultado = Resultado.NO_IMPLEMENTADA;
-		
 		return ret;
 	}
 
