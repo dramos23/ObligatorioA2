@@ -71,7 +71,7 @@ public class Testing {
 		//assertEquals(Retorno.Resultado.OK, s.eliminarTramo(-34.192082,-56.339053,-34.117518,-56.405298).resultado);
 		
 		//Elimino 1 punto
-		assertEquals(Retorno.Resultado.OK, s.eliminarPunto(-34.145863,-56.277579).resultado);
+		//assertEquals(Retorno.Resultado.OK, s.eliminarPunto(-34.145863,-56.277579).resultado); //gjdfujugojdfoiogfj
 		
 		//assertEquals(Retorno.Resultado.ERROR_1, s.eliminarTramo(-34.211054,-56.2192116,-34.235199,-56.2185438).resultado);
 		
