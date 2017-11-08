@@ -57,7 +57,7 @@ public class Testing {
 		//Registro 2 tramo
 		assertEquals(Retorno.Resultado.OK, s.registrarTramo(-34.094821,-56.220934,-34.102376,-56.122201,9).resultado); //ciudad florida - silo
 		assertEquals(Retorno.Resultado.OK, s.registrarTramo(-34.177174,-56.217845,-34.094821,-56.220934,12).resultado); //silo 2 - ciudad florida
-		assertEquals(Retorno.Resultado.OK, s.registrarTramo(-34.145863,-56.277579,-34.094821,-56.220934,6).resultado); //ciudad berrondo - ciudad florida
+		//assertEquals(Retorno.Resultado.OK, s.registrarTramo(-34.145863,-56.277579,-34.094821,-56.220934,6).resultado); //ciudad berrondo - ciudad florida
 		assertEquals(Retorno.Resultado.OK, s.registrarTramo(-34.192082,-56.339053,-34.094821,-56.220934,17).resultado); //ciudad veinticinco de mayo - ciudad florida
 		//assertEquals(Retorno.Resultado.OK, s.registrarTramo(-34.192082,-56.339053,-34.281350,-56.213361,20).resultado); //ciudad veinticinco de mayo - ciudad mendoza
 		//assertEquals(Retorno.Resultado.OK, s.registrarTramo(-34.281350,-56.213361,-34.237845,-56.218210,5).resultado); //ciudad mendoza - ciudad mendoza chico
@@ -68,26 +68,39 @@ public class Testing {
 		assertEquals(Retorno.Resultado.OK, s.registrarTramo(-34.192082,-56.339053,-34.203299,-56.399141,4).resultado); //ciudad veinticinco de mayo - silo 3
 		assertEquals(Retorno.Resultado.OK, s.registrarTramo(-34.192082,-56.339053,-34.117518,-56.405298,12).resultado); //ciudad veinticinco de mayo - plantacion 4
 		
-		//assertEquals(Retorno.Resultado.OK, s.eliminarTramo(-34.192082,-56.339053,-34.117518,-56.405298).resultado);
+		assertEquals(Retorno.Resultado.OK, s.eliminarTramo(-34.192082,-56.339053,-34.117518,-56.405298).resultado);
 		
 		//Elimino 1 punto
 		assertEquals(Retorno.Resultado.OK, s.eliminarPunto(-34.145863,-56.277579).resultado);
 		
 		//assertEquals(Retorno.Resultado.ERROR_1, s.eliminarTramo(-34.211054,-56.2192116,-34.235199,-56.2185438).resultado);
 		
+		//Si antes eliminamos el tramo "silo 2 - ciudad florida", no deberia encontrar silo mas cercano pues no es accesible
+
+		assertEquals(Retorno.Resultado.OK, s.listadoDeSilos().resultado);
+		
 		//Ruta al silo más cercano
 		assertEquals(Retorno.Resultado.OK, s.rutaASiloMasCercano(-34.176316,-56.175714).resultado);
 		
-		assertEquals(Retorno.Resultado.OK, s.mapaEstado().resultado);
+		assertEquals(Retorno.Resultado.OK, s.listadoDeSilos().resultado);
+		
+		//assertEquals(Retorno.Resultado.OK, s.mapaEstado().resultado);
 		
 		assertEquals(Retorno.Resultado.OK, s.listadoProductores().resultado);
 		
-		assertEquals(Retorno.Resultado.OK, s.listadoDeSilos().resultado);
-		
 		assertEquals(Retorno.Resultado.OK, s.listadoDePlantacionesEnCiudad(-34.237845,-56.218210).resultado);
 		
-		//hay que probar cuando el gráfo o el árbol están vacíos
+		//Preguntar que deberia hacer el destruir sistema. Re inicializar con cant puntos o poner en null mapa y productores?
 		assertEquals(Retorno.Resultado.OK, s.destruirSistema().resultado);
+		
+		//Pruebas sobre sistema destruido
+		assertEquals(Retorno.Resultado.ERROR_2, s.registrarTramo(-34.094821,-56.220934,-34.102376,-56.122201,9).resultado); //ciudad florida - silo
+		assertEquals(Retorno.Resultado.ERROR_1, s.eliminarPunto(-34.145863,-56.277579).resultado);
+		assertEquals(Retorno.Resultado.ERROR_1, s.eliminarTramo(-34.192082,-56.339053,-34.117518,-56.405298).resultado);
+		assertEquals(Retorno.Resultado.OK, s.listadoDeSilos().resultado);
+		assertEquals(Retorno.Resultado.ERROR_1, s.rutaASiloMasCercano(-34.176316,-56.175714).resultado);
+		assertEquals(Retorno.Resultado.OK, s.listadoProductores().resultado);
+		assertEquals(Retorno.Resultado.ERROR_1, s.listadoDePlantacionesEnCiudad(-34.237845,-56.218210).resultado);
 		
 	}
 

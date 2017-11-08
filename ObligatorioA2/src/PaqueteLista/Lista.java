@@ -24,7 +24,8 @@ public class Lista implements ILista{
 	
 	public void insertar(Object dato) {
 		NodoLista nuevo = new NodoLista(dato);
-		nuevo.setSig(inicio);
+		if(inicio != null)
+			nuevo.setSig(inicio);
 		this.inicio = nuevo;
 	}
 

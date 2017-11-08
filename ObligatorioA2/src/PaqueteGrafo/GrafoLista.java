@@ -1,6 +1,8 @@
 package PaqueteGrafo;
 
 
+import java.util.Arrays;
+
 import PaqueteDominio.Plantacion;
 import PaqueteDominio.Punto;
 import PaqueteDominio.Silo;
@@ -251,8 +253,7 @@ public class GrafoLista {
 	
 	public String rutaSiloMasCercano(double coordX, double coordY) {
 		int origen = hash.Existe(coordX,coordY);
-		Punto p = vertices[origen];
-		if(origen == -1 || p.getTipoPunto().toString() != "PLANTACIÓN")
+		if(origen == -1 || vertices[origen].getTipoPunto().toString() != "PLANTACIÓN")
 			return "1";
 		else {
 			return caminoMinimoPlantacionSilo(origen);
@@ -263,6 +264,7 @@ public class GrafoLista {
 		boolean[] visitados = new boolean[hash.getTamanio()];
 		int[] costos = new int[hash.getTamanio()];
 		int[] predecesores = new int[hash.getTamanio()];
+		Arrays.fill(predecesores, -2); //Para que no sea ambiguo el 0
 		visitados[verticeInicial] = true;
 		predecesores[verticeInicial] = -1;
 		
@@ -280,8 +282,9 @@ public class GrafoLista {
 		
 		for(int j = 0; j < hash.getTamanio(); j++) {
 			int w = buscarVerticeCostoMinimoSinVisitar(costos,visitados);
-			if(w == -1)
+			if(w == -1 || predecesores[w] == -2)
 				return "2"; //Ya están todos los vértices visitados
+			
 			//Si la capacidad remanente del silo es mayor o igual a la capacidad de la plantación, entonces encontré el silo más cercano
 			if(vertices[w] != null && vertices[w].getTipoPunto().toString().equals("SILO")){
 				Silo s = (Silo)vertices[w];
