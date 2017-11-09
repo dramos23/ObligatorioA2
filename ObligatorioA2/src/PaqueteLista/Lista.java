@@ -2,7 +2,7 @@ package PaqueteLista;
 
 
 
-public class Lista implements ILista{
+public class Lista {
 	private NodoLista inicio;
 	
 	public Lista(NodoLista inicio){
@@ -17,11 +17,6 @@ public class Lista implements ILista{
 		return inicio;
 	}
 	
-	@Override
-//	public void insertar(Object dato) {
-//		inicio = new NodoLista(dato, inicio);
-//	}
-	
 	public void insertar(Object dato) {
 		NodoLista nuevo = new NodoLista(dato);
 		if(inicio != null)
@@ -29,8 +24,6 @@ public class Lista implements ILista{
 		this.inicio = nuevo;
 	}
 
-
-	@Override
 	public void borrar(Object dato) {
 		if(inicio == null)
 			return;
@@ -49,7 +42,6 @@ public class Lista implements ILista{
 		}
 	}
 
-	@Override
 	public boolean existe(Object dato) {
 		NodoLista aux = inicio;
 		while(aux!=null)
@@ -62,7 +54,6 @@ public class Lista implements ILista{
 		return false;
 	}
 
-	@Override
 	public Object recuperar(Object dato) {
 		if(inicio == null)
 			return null;
@@ -79,48 +70,11 @@ public class Lista implements ILista{
 		}
 	}
 
-	@Override
 	public void destruir() {
 		while(inicio != null)
 			inicio = inicio.getSig();
 	}
 
-	@Override
-	public int largo() {
-		int largo = 0;
-		NodoLista aux = inicio;
-		while(aux != null){
-			largo++;
-			aux = aux.getSig();
-		}
-		return largo;
-	}
-
-	@Override
-	public Object recuperarUltimo() {
-		NodoLista aux = inicio;
-		if (inicio != null) {
-			while (aux.getSig() != null) {
-				aux = aux.getSig();
-			}
-		}
-		return aux;
-	}
-
-	@Override
-	public void insertarUltimo(Object dato) {
-		NodoLista aux = inicio;
-		if (inicio != null) {
-			while (aux.getSig() != null) {
-				aux = aux.getSig();
-			}
-			aux.setSig(new NodoLista(dato, aux.getSig()));
-		} else {
-			inicio = new NodoLista(dato, inicio);
-		}		
-	}
-	
-	@Override
 	public boolean esVacia() {
 		return inicio == null;
 	}

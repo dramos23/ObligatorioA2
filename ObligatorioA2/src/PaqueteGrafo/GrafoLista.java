@@ -110,20 +110,6 @@ public class GrafoLista {
 		}
 	}
 	
-	public Lista verticesAdyacentes(Object v) {
-//		Punto p = (Punto)v;
-//		ArrayList<Punto> misAdyacentes = new ArrayList<Punto>();
-//		//return listaAdyacencia[v];
-//		for(int i = 0; i < cantNodos; i++) { 
-//			if(sonAdyacentes(v,i)){
-//				//obtengo peso de la arista.
-//				costos[i] = obtenerArista(verticeInicial,i).getPeso(); 
-//				predecesores[i] = verticeInicial;
-//			}
-//		}
-		return null;
-	}
-	
 	public boolean sonAdyacentes(int a, int b) {
 		if(!listaAdyacencia[a].esVacia()){
 			Arista arista = new Arista(b);
@@ -240,7 +226,9 @@ public class GrafoLista {
 							Arista a = (Arista)nodoArista.getDato();
 							int indiceDestino = a.getDestino();
 							String coordenadasDestino = vertices[indiceDestino].coordsToStr();
-							trayecto += "&path=color:0xff0000ff|weight:2|" + coordenadasOrigen + "|" + coordenadasDestino;
+							if(!trayecto.contains(coordenadasDestino + "|" + coordenadasOrigen)) {
+								trayecto += "&path=color:0xff0000ff|weight:2|" + coordenadasOrigen + "|" + coordenadasDestino;
+							}
 							nodoArista = nodoArista.getSig();
 						}
 					}

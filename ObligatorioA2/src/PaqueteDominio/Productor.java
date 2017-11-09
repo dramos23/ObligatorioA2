@@ -66,12 +66,12 @@ public class Productor {
 		
 	}
 	
+	//0 si todo OK
+	//	1. Si la cédula cédula no cumple el formato N.NNN.NNN-N
+	//	2. Si el número de celular celular no cumple el formato 09NNNNNNN
+	//	3. Si el email email no cumple el formato de direcciones de e-mail
 	public int validar(){
-		//TO-DO
-		//0 si todo OK
-//		1. Si la cédula cédula no cumple el formato N.NNN.NNN-N
-//		2. Si el número de celular celular no cumple el formato 09NNNNNNN
-//		3. Si el email email no cumple el formato de direcciones de e-mail
+
 		if (!validarCedula(this.cedula))
 			return 1;
 		if (!validarCelular(this.celular))

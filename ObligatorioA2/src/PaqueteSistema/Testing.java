@@ -86,7 +86,7 @@ public class Testing {
 		
 		assertEquals(Retorno.Resultado.OK, s.listadoDeSilos().resultado);
 		
-		//assertEquals(Retorno.Resultado.OK, s.mapaEstado().resultado);
+		assertEquals(Retorno.Resultado.OK, s.mapaEstado().resultado);
 		
 		assertEquals(Retorno.Resultado.OK, s.listadoProductores().resultado);
 

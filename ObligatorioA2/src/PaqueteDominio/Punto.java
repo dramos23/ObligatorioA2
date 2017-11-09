@@ -52,7 +52,6 @@ public abstract class Punto{
 			Punto p = (Punto)o;
 			return p.getCoordX() == coordX && p.getCoordY() == coordY;
 		} catch(Exception ex){
-			System.out.println("Excepción: " +ex.getMessage());
 			return false;
 		}
 	}
