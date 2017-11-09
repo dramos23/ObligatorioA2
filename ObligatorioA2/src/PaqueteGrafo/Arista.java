@@ -39,7 +39,6 @@ public class Arista{
 			Arista a = (Arista)o;
 			return a.destino == this.destino;
 		} catch(Exception e) {
-			System.out.println("Error de casting en Arista");
 			return false;
 		}
 	}
