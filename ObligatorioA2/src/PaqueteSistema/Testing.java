@@ -13,7 +13,7 @@ public class Testing {
 		
 		/*PRUEBAS*/
 		//Inicializar Sistema
-		assertEquals(Retorno.Resultado.OK, s.inicializarSistema(13).resultado);
+		assertEquals(Retorno.Resultado.OK, s.inicializarSistema(15).resultado);
 		
 		//Registrar Productor - OK
 		assertEquals(Retorno.Resultado.OK, s.registrarProductor("4.798.128-7", "Daniel", "Copacabana M31 S12", "daniel.r.23@gmail.com", "098369129").resultado);
@@ -32,15 +32,18 @@ public class Testing {
 		assertEquals(Retorno.Resultado.OK, s.registrarCiudad("Berrondo",-34.145863,-56.277579).resultado);
 		assertEquals(Retorno.Resultado.OK, s.registrarCiudad("Florida",-34.094821,-56.220934).resultado);
 		//assertEquals(Retorno.Resultado.OK, s.registrarCiudad("Cardal",-34.290906,-56.394002).resultado);
+		assertEquals(Retorno.Resultado.OK, s.registrarCiudad("La Cruz",-33.929367, -56.236809).resultado);
 		
 		//Registrar Ciudad - Errores
 		assertEquals(Retorno.Resultado.ERROR_2, s.registrarCiudad("Veinticinco de Mayo",-34.192082,-56.339053).resultado);
 		
 		//Registrar Plantación - OK
-		assertEquals(Retorno.Resultado.OK, s.registrarPlantacion("Plantacion_1",-34.176316,-56.175714,"4.798.128-7",25000).resultado);
-		assertEquals(Retorno.Resultado.OK, s.registrarPlantacion("Plantacion_2",-34.065572,-56.314966,"4.868.799-1",20000).resultado);
-		assertEquals(Retorno.Resultado.OK, s.registrarPlantacion("Plantacion_3",-34.262350,-56.163138,"4.317.139-7",29500).resultado);
-		assertEquals(Retorno.Resultado.OK, s.registrarPlantacion("Plantacion_4",-34.117518,-56.405298,"4.317.139-7",3000).resultado);
+		assertEquals(Retorno.Resultado.OK, s.registrarPlantacion("Plantacion_1",-34.176316,-56.175714,"4.798.128-7",15000).resultado);
+		assertEquals(Retorno.Resultado.OK, s.registrarPlantacion("Plantacion_2",-34.065572,-56.314966,"4.868.799-1",10000).resultado);
+		assertEquals(Retorno.Resultado.OK, s.registrarPlantacion("Plantacion_3",-34.262350,-56.163138,"4.317.139-7",8000).resultado);
+		assertEquals(Retorno.Resultado.OK, s.registrarPlantacion("Plantacion_4",-34.117518,-56.405298,"4.317.139-7",5700).resultado); 
+		assertEquals(Retorno.Resultado.OK, s.registrarPlantacion("Plantacion_5",-34.030568, -56.182196,"4.317.139-7",20000).resultado); 
+		assertEquals(Retorno.Resultado.OK, s.registrarPlantacion("Plantacion_6",-34.061509, -56.375655,"4.317.139-7",2000).resultado);
 		
 		//Registrar Plantación - Errores
 		assertEquals(Retorno.Resultado.ERROR_2, s.registrarPlantacion("Plantacion_1",-34.176316,-56.175714,"4.798.128-7",0).resultado);
@@ -66,6 +69,8 @@ public class Testing {
 		assertEquals(Retorno.Resultado.OK, s.registrarTramo(-34.237845,-56.218210,-34.262350,-56.163138,4).resultado); //ciudad mendoza chico - plantacion 3
 		assertEquals(Retorno.Resultado.OK, s.registrarTramo(-34.192082,-56.339053,-34.203299,-56.399141,4).resultado); //ciudad veinticinco de mayo - silo 3
 		assertEquals(Retorno.Resultado.OK, s.registrarTramo(-34.192082,-56.339053,-34.117518,-56.405298,12).resultado); //ciudad veinticinco de mayo - plantacion 4
+		assertEquals(Retorno.Resultado.OK, s.registrarTramo(-34.094821,-56.220934,-34.030568, -56.182196,9).resultado); //ciudad florida - plantacion 5
+		assertEquals(Retorno.Resultado.OK, s.registrarTramo(-34.065572,-56.314966,-34.061509, -56.375655,14).resultado); //ciudad plantacion 2 - palntacion 6
 		
 		//Eliminar Tramo - OK
 		assertEquals(Retorno.Resultado.OK, s.eliminarTramo(-34.192082,-56.339053,-34.117518,-56.405298).resultado);  //ciudad veinticinco de mayo - plantacion 4
