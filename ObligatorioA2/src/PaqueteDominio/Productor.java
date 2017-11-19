@@ -90,7 +90,7 @@ public class Productor {
 	
 	@Override
 	public String toString(){
-		return cedulaSoloNumeros() + ";" + nombre +  ";" + celular;
+		return cedula + ";" + nombre +  ";" + celular;
 	}
 	
     

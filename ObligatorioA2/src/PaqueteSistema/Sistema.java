@@ -31,9 +31,11 @@ public class Sistema implements ISistema {
 	@Override
 	public Retorno destruirSistema() {
 		Retorno ret = new Retorno();
-		int cantPuntos = mapa.getCantNodos();
-		mapa = new GrafoLista(cantPuntos);
-		productores = new ArbolBB();
+		mapa = null;
+		productores = null;
+//		int cantPuntos = mapa.getCantNodos();
+//		mapa = new GrafoLista(cantPuntos);
+//		productores = new ArbolBB();
 		ret.resultado = Resultado.OK;
 		return ret;
 	}

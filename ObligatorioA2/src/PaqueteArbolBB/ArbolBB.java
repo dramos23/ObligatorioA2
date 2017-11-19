@@ -24,13 +24,13 @@ public class ArbolBB{
         if (a != null){
         	valor = obtenerObjetosInOrder(a.getIzq());
         	if ( valor != "" )
-        		retorno += valor + " | "; 
+        		retorno += valor + "|"; 
             
         	retorno += a.getObjeto();
              
             valor = obtenerObjetosInOrder(a.getDer());
             if ( valor != "" )
-        		retorno += " | " + valor;
+        		retorno += "|" + valor;
         }
         return retorno;
     }
@@ -88,7 +88,7 @@ public class ArbolBB{
     		if(n.getDer() == null)
     			n.setDer(new NodoBB(o,x));
     		else
-    			insertar(x, n.getDer());
+    			insertar(x, o, n.getDer());
     	}
     }
  

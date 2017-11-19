@@ -104,14 +104,14 @@ public class Testing {
 		//Preguntar que deberia hacer el destruir sistema. Re inicializar con cant puntos o poner en null mapa y productores?
 		assertEquals(Retorno.Resultado.OK, s.destruirSistema().resultado);
 		
-		//Pruebas sobre sistema destruido
-		assertEquals(Retorno.Resultado.ERROR_2, s.registrarTramo(-34.094821,-56.220934,-34.102376,-56.122201,9).resultado); //ciudad florida - silo
-		assertEquals(Retorno.Resultado.ERROR_1, s.eliminarPunto(-34.145863,-56.277579).resultado);
-		assertEquals(Retorno.Resultado.ERROR_1, s.eliminarTramo(-34.192082,-56.339053,-34.117518,-56.405298).resultado);
-		assertEquals(Retorno.Resultado.OK, s.listadoDeSilos().resultado);
-		assertEquals(Retorno.Resultado.ERROR_1, s.rutaASiloMasCercano(-34.176316,-56.175714).resultado);
-		assertEquals(Retorno.Resultado.OK, s.listadoProductores().resultado);
-		assertEquals(Retorno.Resultado.ERROR_1, s.listadoDePlantacionesEnCiudad(-34.237845,-56.218210).resultado);
+		//Pruebas sobre sistema destruido reinicializado
+//		assertEquals(Retorno.Resultado.ERROR_2, s.registrarTramo(-34.094821,-56.220934,-34.102376,-56.122201,9).resultado); //ciudad florida - silo
+//		assertEquals(Retorno.Resultado.ERROR_1, s.eliminarPunto(-34.145863,-56.277579).resultado);
+//		assertEquals(Retorno.Resultado.ERROR_1, s.eliminarTramo(-34.192082,-56.339053,-34.117518,-56.405298).resultado);
+//		assertEquals(Retorno.Resultado.OK, s.listadoDeSilos().resultado);
+//		assertEquals(Retorno.Resultado.ERROR_1, s.rutaASiloMasCercano(-34.176316,-56.175714).resultado);
+//		assertEquals(Retorno.Resultado.OK, s.listadoProductores().resultado);
+//		assertEquals(Retorno.Resultado.ERROR_1, s.listadoDePlantacionesEnCiudad(-34.237845,-56.218210).resultado);
 		
 	}
 

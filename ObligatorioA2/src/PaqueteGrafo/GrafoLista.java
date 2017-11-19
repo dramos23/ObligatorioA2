@@ -201,7 +201,7 @@ public class GrafoLista {
 		String verde = "";
 		String trayecto = "";
 		if(size != 0) {
-			url = "https://maps.googleapis.com/maps/api/staticmap?zoom=11&size=640x640&maptype=roadmap";
+			url = "https://maps.googleapis.com/maps/api/staticmap?&size=640x640&maptype=roadmap";
 			for(int i = 0; i < vertices.length; i++) {
 				if(vertices[i] != null) {
 					String coordenadasOrigen = vertices[i].coordsToStr();
