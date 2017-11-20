@@ -314,23 +314,37 @@ public class GrafoLista {
 			int[] costos = new int[hash.getTamanio()]; //cantNodos
 			int[] predecesores = new int[hash.getTamanio()]; //cantNodos
 			visitados[verticeInicial] = true;
+			Arrays.fill(predecesores, -2); //Para que no sea ambiguo el 0
 			predecesores[verticeInicial] = -1;
 			
-			//para todos los vértices del gráfo
-			for(int i = 0; i < hash.getTamanio(); i++) { 
-				//i sea adyancente a verticeInicial
-				if(sonAdyacentes(verticeInicial,i)){
-					//obtengo peso de la arista.
-					costos[i] = obtenerArista(verticeInicial,i).getPeso();
-					predecesores[i] = verticeInicial;
-				} else {
-					costos[i] = Integer.MAX_VALUE;
-				}
+			Arrays.fill(costos, Integer.MAX_VALUE);
+			costos[verticeInicial] = 0;
+			
+			Lista adyacentes = listaAdyacencia[verticeInicial];
+			NodoLista aux = adyacentes.getInicio();
+			while(aux != null){
+				Arista actual = (Arista)aux.getDato();
+				int destino = actual.getDestino();
+				costos[destino] = actual.getPeso();
+				predecesores[destino] = verticeInicial;
+				aux = aux.getSig();
 			}
+			
+//			//para todos los vértices del gráfo
+//			for(int i = 0; i < hash.getTamanio(); i++) { 
+//				//i sea adyancente a verticeInicial
+//				if(sonAdyacentes(verticeInicial,i)){
+//					//obtengo peso de la arista.
+//					costos[i] = obtenerArista(verticeInicial,i).getPeso();
+//					predecesores[i] = verticeInicial;
+//				} else {
+//					costos[i] = Integer.MAX_VALUE;
+//				}
+//			}
 			
 			for(int j = 0; j < hash.getTamanio(); j++) {
 				int w = buscarVerticeCostoMinimoSinVisitar(costos,visitados);
-				if(w == -1)
+				if(w == -1 || predecesores[w] == -2)
 					break;
 				//siempre voy a encontrar w. no es necesario revisar si encontré o no
 				visitados[w] = true; //en el momento que se marca true es que obtuve el camino minimo desde verticeInicial a w. opcionalmente puedo frenar acá si estaba buscando el camino minimo de verticeInicial a un w.
@@ -366,7 +380,7 @@ public class GrafoLista {
 			Punto p = vertices[i];
 			if(p != null && p.getTipoPunto().toString().equals("SILO")){
 				Silo s = (Silo)p;
-				retorno += "|" + s.coordsToStr() + s.getCapacidad() + ";" + s.getCapacidadRemanente();
+				retorno += "|" + s;
 			}
 		}
 		if(retorno != "") retorno = retorno.substring(1); //Borro el "|" que queda al principio

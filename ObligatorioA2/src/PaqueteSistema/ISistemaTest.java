@@ -197,7 +197,7 @@ public class ISistemaTest {
 		assertTrue(r.valorString.contains("-34.901113;-56.164531"));
 		assertTrue(r.valorString.contains("-32.702193;-57.638238"));
 		assertTrue(r.valorString.contains("-34.336668;-53.793882"));
-		assertTrue(r.valorString.length()==87); // Solo tengo 4 plantaciones -> 21 * 4 + 3 pipes
+		assertTrue(r.valorString.length()==65); // Solo tengo 3 plantaciones -> 21 * 3 + 2 pipes
 	}
 
 	@Test
@@ -212,8 +212,7 @@ public class ISistemaTest {
 		
 		r = sis.listadoDeSilos();
 		assertEquals(Retorno.Resultado.OK, r.resultado);
-		//assertEquals("", r.valorString);
-		
+		assertTrue(r.valorString.length()==99); //5 silos * 19 + 4 pipes = 99
 	}
 
 	@Test
@@ -228,8 +227,7 @@ public class ISistemaTest {
 		
 		r = sis.listadoProductores();
 		assertEquals(Retorno.Resultado.OK, r.resultado);
-		assertEquals("1.111.111-0;Lucia;099111111|2.222.222-0;Bruno;099222222|3.333.333-0;Nicolas;099333333|4.444.444-0;Ilan;099444444|5.555.555-0;Fabian;099555555|6.666.666-0;Gabriel;099666666", r.valorString);
-		
+		assertEquals("11111110;Lucia;099111111|22222220;Bruno;099222222|33333330;Nicolas;099333333|44444440;Ilan;099444444|55555550;Fabian;099555555|66666660;Gabriel;099666666", r.valorString);
 	}
 	
 
