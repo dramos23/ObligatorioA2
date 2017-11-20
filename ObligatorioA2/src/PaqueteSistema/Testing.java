@@ -98,6 +98,7 @@ public class Testing {
 
 		assertEquals(Retorno.Resultado.OK, s.listadoDeSilos().resultado);
 		assertEquals(Retorno.Resultado.OK, s.rutaASiloMasCercano(-34.176316,-56.175714).resultado);
+		assertEquals(Retorno.Resultado.OK, s.listadoDeSilos().resultado);
 		
 		assertEquals(Retorno.Resultado.OK, s.listadoDeSilos().resultado);
 		
@@ -105,7 +106,7 @@ public class Testing {
 		
 		assertEquals(Retorno.Resultado.OK, s.listadoProductores().resultado);
 
-		assertEquals(Retorno.Resultado.OK, s.listadoDeSilos().resultado);
+		
 		
 		//Listado de plantaciones en ciudad - OK
 		assertEquals(Retorno.Resultado.OK, s.listadoDePlantacionesEnCiudad(-34.237845,-56.218210).resultado);
