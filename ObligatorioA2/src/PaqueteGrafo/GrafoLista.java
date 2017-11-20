@@ -142,41 +142,6 @@ public class GrafoLista {
 		return size < cantNodos;
 	}
 	
-	public void caminoMinimo(int verticeInicial) {
-		boolean[] visitados = new boolean[hash.getTamanio()];
-		int[] costos = new int[hash.getTamanio()];
-		int[] predecesores = new int[hash.getTamanio()];
-		visitados[verticeInicial] = true;
-		predecesores[verticeInicial] = -1;
-		
-		//para todos los vértices del gráfo
-		for(int i = 0; i < hash.getTamanio(); i++) { 
-			//i sea adyancente a verticeInicial
-			if(sonAdyacentes(verticeInicial,i)){
-				//obtengo peso de la arista.
-				costos[i] = obtenerArista(verticeInicial,i).getPeso();
-				predecesores[i] = verticeInicial;
-			} else {
-				costos[i] = Integer.MAX_VALUE;
-			}
-		}
-		
-		for(int j = 0; j < hash.getTamanio(); j++) {
-			int w = buscarVerticeCostoMinimoSinVisitar(costos,visitados);
-			//siempre voy a encontrar w. no es necesario revisar si encontré o no
-			visitados[w] = true; //en el momento que se marca true es que obtuve el camino minimo desde verticeInicial a w. opcionalmente puedo frenar acá si estaba buscando el camino minimo de verticeInicial a un w.
-			NodoLista n = listaAdyacencia[w].getInicio();
-			while(n != null) {
-				Arista a = (Arista)n.getDato();
-				if(!visitados[a.getDestino()]) {
-					costos[a.getDestino()] = Math.min(costos[a.getDestino()],costos[w] + a.getPeso());
-					predecesores[a.getDestino()] = w;
-				}
-				n = n.getSig();
-			}
-		}
-	}
-
 	public int buscarVerticeCostoMinimoSinVisitar(int[] costos, boolean[] visitados) {
 		int costoMinimo = Integer.MAX_VALUE;
 		int retorno = -1;
@@ -329,19 +294,7 @@ public class GrafoLista {
 				predecesores[destino] = verticeInicial;
 				aux = aux.getSig();
 			}
-			
-//			//para todos los vértices del gráfo
-//			for(int i = 0; i < hash.getTamanio(); i++) { 
-//				//i sea adyancente a verticeInicial
-//				if(sonAdyacentes(verticeInicial,i)){
-//					//obtengo peso de la arista.
-//					costos[i] = obtenerArista(verticeInicial,i).getPeso();
-//					predecesores[i] = verticeInicial;
-//				} else {
-//					costos[i] = Integer.MAX_VALUE;
-//				}
-//			}
-			
+					
 			for(int j = 0; j < hash.getTamanio(); j++) {
 				int w = buscarVerticeCostoMinimoSinVisitar(costos,visitados);
 				if(w == -1 || predecesores[w] == -2)

@@ -90,15 +90,9 @@ public class Testing {
 		
 		//Eliminar Punto - OK
 		assertEquals(Retorno.Resultado.ERROR_1, s.eliminarPunto(-34.145863,-56.277579).resultado);
-		
-		//Ruta al silo más cercano - OK
-		//assertEquals(Retorno.Resultado.ERROR_1, s.eliminarTramo(-34.211054,-56.2192116,-34.235199,-56.2185438).resultado);
-		
-		//Si antes eliminamos el tramo "silo 2 - ciudad florida", no deberia encontrar silo mas cercano pues no es accesible
 
-		assertEquals(Retorno.Resultado.OK, s.listadoDeSilos().resultado);
+		//Ruta al silo más cercano - OK
 		assertEquals(Retorno.Resultado.OK, s.rutaASiloMasCercano(-34.176316,-56.175714).resultado);
-		assertEquals(Retorno.Resultado.OK, s.listadoDeSilos().resultado);
 		
 		assertEquals(Retorno.Resultado.OK, s.listadoDeSilos().resultado);
 		
@@ -106,13 +100,9 @@ public class Testing {
 		
 		assertEquals(Retorno.Resultado.OK, s.listadoProductores().resultado);
 
-		
-		
 		//Listado de plantaciones en ciudad - OK
 		assertEquals(Retorno.Resultado.OK, s.listadoDePlantacionesEnCiudad(-34.237845,-56.218210).resultado);
 		
-		//hay que probar cuando el gráfo o el árbol están vacíos. PREGUNTAR!
-		//Preguntar que deberia hacer el destruir sistema. Re inicializar con cant puntos o poner en null mapa y productores?
 		assertEquals(Retorno.Resultado.OK, s.destruirSistema().resultado);
 		
 		//Pruebas sobre sistema destruido reinicializado
