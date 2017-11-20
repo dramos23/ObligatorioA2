@@ -34,5 +34,8 @@ public class Silo extends Punto{
 		this.setTipoPunto(Sistema.TipoPunto.SILO);
 	}
 
-	
+	@Override
+	public String toString(){
+		return this.getCoordX() + ";" + this.getCoordY() + ";" + this.capacidad + ";" + this.capacidadRemanente;
+	}
 }

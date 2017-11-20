@@ -90,11 +90,9 @@ public class Productor {
 	
 	@Override
 	public String toString(){
-		return cedula + ";" + nombre +  ";" + celular;
+		return cedulaSoloNumeros() + ";" + nombre +  ";" + celular;
 	}
-	
-    
- 
+
     private boolean validarEmail(String email) {
  
         Pattern pattern = Pattern.compile(PATTERN_EMAIL);
